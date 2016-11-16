@@ -19,7 +19,41 @@ namespace RateMyLandlord.Controllers
         [HttpPost]
         public ActionResult Index(ContactEmailViewModel contactMessage)
         {
-            return null;
+            //Validate contact message input
+            if (contactMessage == null)
+            {
+                ModelState.AddModelError("", "No Message Provided");
+                return View();
+            }
+
+            if (string.IsNullOrWhiteSpace(contactMessage.Name) || 
+                string.IsNullOrWhiteSpace(contactMessage.Email) ||
+                string.IsNullOrWhiteSpace(contactMessage.Message))
+            {
+                ModelState.AddModelError("", "All Fields are required.");
+                return View();
+            }
+
+            //Create email message object
+            System.Net.Mail.MailMessage email = new System.Net.Mail.MailMessage();
+
+            // populate message
+            email.To.Add("ratemylandlord03@gmail.com");
+            email.From = new System.Net.Mail.MailAddress(contactMessage.Email);
+            email.Subject = "Support Ticket";
+            email.Body = contactMessage.Message;
+            email.IsBodyHtml = false;
+
+
+            //set up SMTP client
+            System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient();
+            smtpClient.Host = "mail.twc.com";
+
+            //send message
+            smtpClient.Send(email);
+
+            //notify user that the message was sent. 
+            return View("emailConfirmation");
         }
     }
 }
