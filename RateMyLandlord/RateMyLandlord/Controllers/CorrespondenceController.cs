@@ -28,6 +28,7 @@ namespace RateMyLandlord.Controllers
 
             if (string.IsNullOrWhiteSpace(contactMessage.Name) || 
                 string.IsNullOrWhiteSpace(contactMessage.Email) ||
+                string.IsNullOrWhiteSpace(contactMessage.Subject) ||
                 string.IsNullOrWhiteSpace(contactMessage.Message))
             {
                 ModelState.AddModelError("", "All Fields are required.");
@@ -40,10 +41,13 @@ namespace RateMyLandlord.Controllers
             // populate message
             email.To.Add("ratemylandlord03@gmail.com");
             email.From = new System.Net.Mail.MailAddress(contactMessage.Email);
-            email.Subject = "Support Ticket";
-            email.Body = contactMessage.Message;
+            email.Subject = contactMessage.Subject;
+            email.Body = string.Format(
+                "Name: {0}\r\nMessage: {1}",
+                contactMessage.Name,
+                contactMessage.Message
+                );
             email.IsBodyHtml = false;
-
 
             //set up SMTP client
             System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient();
