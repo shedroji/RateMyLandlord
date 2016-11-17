@@ -6,7 +6,7 @@ using System.Web;
 
 namespace RateMyLandlord.Models.Data
 {
-    public class RatMyLandlordDbContext : DbContext
+    public class RateMyLandlordDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
     }

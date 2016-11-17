@@ -1,4 +1,5 @@
-﻿using RateMyLandlord.Models.ViewModels.Account;
+﻿using RateMyLandlord.Models.Data;
+using RateMyLandlord.Models.ViewModels.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,65 @@ namespace RateMyLandlord.Controllers
         {
             return this.RedirectToAction("Login");
         }
-
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(CreateUserViewModel newUser)
+        {
+            //Validate the new User
+
+
+            //Check That the required fields are set
+            if(!ModelState.IsValid)
+            {
+                return View(newUser);
+            }
+
+            //Check password matches confirmpassword
+            if(!newUser.Password.Equals(newUser.PasswordConfirm))
+            {
+                ModelState.AddModelError("", "Password does not match Password Confirm.");
+                return View(newUser);
+            }
+
+            //Create an instance of DbContext
+            using (RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            {
+                //Make sure username is unique
+                if(context.Users.Any(row => row.Username.Equals(newUser.Username)))
+                {
+                    ModelState.AddModelError("", "Username '" + newUser.Username + "'already exists. Try again.");
+                    newUser.Username = "";
+                    return View(newUser);
+                }
+
+                //Create our userDTO
+                User newUserDTO = new Models.Data.User()
+                {
+                    FirstName = newUser.FirstName,
+                    LastName = newUser.LastName,
+                    Username = newUser.Username,
+                    Email = newUser.Email,
+                    Password = newUser.Password,
+                    IsActive = true,
+                    IsAdmin = false,
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now
+                };
+
+                //Add to DbContext
+                newUserDTO = context.Users.Add(newUserDTO);
+
+                //Save Changes
+                context.SaveChanges();
+            }
+
+            //Redirect to the Login Page
+            return RedirectToAction("login");
         }
 
         [HttpGet]

@@ -135,7 +135,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\RatMyLandlordDbContext.cs" />
+    <Compile Include="Models\Data\RateMyLandlordDbContext.cs" />
     <Compile Include="Models\Data\User.cs" />
     <Compile Include="Models\ViewModels\Account\CreateUserViewModel.cs" />
     <Compile Include="Models\ViewModels\Account\LoginUserViewModel.cs" />
@@ -184,6 +184,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Correspondence\Index.cshtml" />
     <Content Include="Views\Correspondence\emailConfirmation.cshtml" />
+    <Content Include="Views\Account\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
