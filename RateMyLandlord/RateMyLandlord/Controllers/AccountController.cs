@@ -104,16 +104,35 @@ namespace RateMyLandlord.Controllers
                 return View();
             }
             //open DB connection
+            bool isValid = false;
+            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            {
+                //Hash password
 
-            //query for user based on username and password
 
-            //if invalid send error
+                //query for user based on username and password
+                if (context.Users.Any(
+                    row=>row.Username.Equals(loginUser.Username)
+                    && row.Password.Equals(loginUser.Password)
+                    ))
+                {
+                    isValid = true;
+                }
+            
+            }
+                //if invalid send error
+            if(!isValid)
+            {
+                ModelState.AddModelError("", "Invalid Username or Password");
+                return View();
+            }
+            else
+            {
+                //valid, redirect to user profile 
+                System.Web.Security.FormsAuthentication.SetAuthCookie(loginUser.Username, loginUser.RememberMe);
 
-            //valid, redirect to user profile 
-            System.Web.Security.FormsAuthentication.SetAuthCookie(loginUser.Username, loginUser.RememberMe);
-
-            return Redirect(FormsAuthentication.GetRedirectUrl(loginUser.Username, loginUser.RememberMe));
-                 
+                return Redirect(FormsAuthentication.GetRedirectUrl(loginUser.Username, loginUser.RememberMe));
+            }                
         }
     }
 }
