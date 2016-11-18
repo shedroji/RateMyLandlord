@@ -134,5 +134,71 @@ namespace RateMyLandlord.Controllers
                 return Redirect(FormsAuthentication.GetRedirectUrl(loginUser.Username, loginUser.RememberMe));
             }                
         }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
+        }
+
+        public ActionResult UserNavPartial()
+        {
+            //Capture logged in user
+            string username;
+            username = this.User.Identity.Name;
+            UserNavPartialViewModel userNavVM;
+            //Get info from db
+            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            {
+                //Search for User
+                Models.Data.User userDTO = context.Users.FirstOrDefault(x => x.Username == username);
+                
+                if(userDTO == null) { return Content(""); }
+
+                //Build Partial view
+                userNavVM = new UserNavPartialViewModel
+                {
+                    Username = userDTO.Username,
+                    Id = userDTO.Id
+                };
+            }
+
+            //Send the View model 
+            return PartialView(userNavVM);
+        }
+
+        public ActionResult UserProfile()
+        {
+            //Capture logged in user
+            string username = User.Identity.Name;
+
+            //Retrieve the User from the DB
+            UserProfileViewModel profileVM;
+            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            {
+                User userDTO = context.Users.FirstOrDefault(row => row.Username == username);
+                if(userDTO == null)
+                {
+                    return Content("Invalid Username");
+                }
+
+                //Populate the UserProfileViewModel
+                profileVM = new UserProfileViewModel()
+                {
+                    Id = userDTO.Id,
+                    FirstName = userDTO.FirstName,
+                    LastName = userDTO.LastName,
+                    Email = userDTO.Email,
+                    Username = userDTO.Username,
+                    IsAdmin = userDTO.IsAdmin,
+                    IsLandlord = userDTO.IsAdmin
+                };
+
+            }
+
+            //Retrun the View with the viewModel
+            return View(profileVM);
+
+        }
     }
 }
