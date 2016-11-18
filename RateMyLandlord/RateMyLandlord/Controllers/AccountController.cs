@@ -200,5 +200,108 @@ namespace RateMyLandlord.Controllers
             return View(profileVM);
 
         }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            //Get User by ID
+            EditViewModel editVM;
+            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            {
+                //Get User from DB
+                User userDTO = context.Users.Find(id);
+                if(userDTO == null)
+                {
+                    return Content("Invalid Id");
+                }
+
+                //Create EditVM
+                editVM = new EditViewModel
+                {
+                    Username = userDTO.Username, 
+                    FirstName = userDTO.FirstName, 
+                    LastName = userDTO.LastName,
+                    Email = userDTO.Email, 
+                    Id = userDTO.Id
+                };
+
+            }
+
+
+
+            //Send VM to the View
+            return View(editVM);
+
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EditViewModel editVM)
+        {
+            //Variables
+            bool needsPasswordReset = false;
+            bool usernameHasChanged = false;
+            //Validate the model 
+            if (!ModelState.IsValid)
+            {
+                return View(editVM);
+            }
+
+            //Check for password change
+            if (!string.IsNullOrWhiteSpace(editVM.Password))
+            {
+                //Compare password with password confirm
+                if (editVM.Password != editVM.PasswordConfrim)
+                {
+                    ModelState.AddModelError("", "Password and Confrim Password Must Match.");
+                    return View(editVM);
+                }
+                else
+                {
+                    needsPasswordReset = true;
+                }
+            }
+
+
+            //Get user from DB
+            User userDTO;
+            using (RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            {
+                userDTO = context.Users.Find(editVM.Id);
+                if (userDTO == null) { return Content("Invalid User Id."); }
+
+                //Check for Username Change
+                if(userDTO.Username != editVM.Username)
+                {
+                    userDTO.Username = editVM.Username;
+                    usernameHasChanged = true;
+                }
+
+                //Set/ Update values from the view model
+                userDTO.FirstName = editVM.FirstName;
+                userDTO.LastName = editVM.LastName;
+
+
+
+                if (needsPasswordReset)
+                {
+                    userDTO.Password = editVM.Password;
+                }
+
+                //Save Changes
+                context.SaveChanges();
+            }
+            if(usernameHasChanged || needsPasswordReset)
+            {
+                TempData["LogoutMessage"] = "After a username or password change, please log in with the new credentials.";
+                return RedirectToAction("Logout");
+            }
+            else
+            {
+                return RedirectToAction("UserProfile");
+
+            }
+
+
+        }
     }
 }
