@@ -132,9 +132,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CorrespondenceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Data\Property.cs" />
     <Compile Include="Models\Data\RateMyLandlordDbContext.cs" />
     <Compile Include="Models\Data\User.cs" />
     <Compile Include="Models\ViewModels\Account\CreateUserViewModel.cs" />
@@ -143,6 +145,9 @@
     <Compile Include="Models\ViewModels\Account\UserNavPartialViewModel.cs" />
     <Compile Include="Models\ViewModels\Account\UserProfileViewModel.cs" />
     <Compile Include="Models\ViewModels\Correspondence\ContactEmailViewModel.cs" />
+    <Compile Include="Models\ViewModels\Property\CreatePropertyViewModel.cs" />
+    <Compile Include="Models\ViewModels\Property\PropertyProfileViewModel.cs" />
+    <Compile Include="Models\ViewModels\Property\UpdateViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -192,7 +197,9 @@
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Property\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
