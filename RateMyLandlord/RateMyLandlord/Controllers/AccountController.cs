@@ -3,6 +3,7 @@ using RateMyLandlord.Models.ViewModels.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -40,6 +41,7 @@ namespace RateMyLandlord.Controllers
                 ModelState.AddModelError("", "Password does not match Password Confirm.");
                 return View(newUser);
             }
+            string hashedPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(newUser.Password, "MD5");
 
             //Create an instance of DbContext
             using (RateMyLandlordDbContext context = new RateMyLandlordDbContext())
@@ -59,7 +61,7 @@ namespace RateMyLandlord.Controllers
                     LastName = newUser.LastName,
                     Username = newUser.Username,
                     Email = newUser.Email,
-                    Password = newUser.Password,
+                    Password = hashedPassword,
                     IsActive = true,
                     IsAdmin = false,
                     DateCreated = DateTime.Now,
@@ -108,12 +110,12 @@ namespace RateMyLandlord.Controllers
             using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
             {
                 //Hash password
-
+                string hashedPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(loginUser.Password, "MD5");
 
                 //query for user based on username and password
                 if (context.Users.Any(
                     row=>row.Username.Equals(loginUser.Username)
-                    && row.Password.Equals(loginUser.Password)
+                    && row.Password.Equals(hashedPassword)
                     ))
                 {
                     isValid = true;
