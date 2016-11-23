@@ -32,7 +32,7 @@ namespace RateMyLandlord.Controllers
 
             //Create an instance of DBContext
 
-                //Make sure the new Property is Unique
+                //Make sure the new Property is Unique by comparing addresses. 
 
                 //Create UserDTO
 
