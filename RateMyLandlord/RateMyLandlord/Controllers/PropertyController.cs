@@ -1,4 +1,5 @@
-﻿using RateMyLandlord.Models.ViewModels.Property;
+﻿using RateMyLandlord.Models.Data;
+using RateMyLandlord.Models.ViewModels.Property;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,20 +29,49 @@ namespace RateMyLandlord.Controllers
         [HttpPost]
         public ActionResult Create(CreatePropertyViewModel newProperty)
         {
-            //Validat that required Fields are filled in
+            //Validate that required Fields are filled in
+            if (!ModelState.IsValid)
+            {
+                return View(newProperty);
+            }
 
             //Create an instance of DBContext
-
+            using (RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            {
                 //Make sure the new Property is Unique by comparing addresses. 
-
+                    if(context.Properties.Any(row=>row.Unit.Equals(newProperty.Unit)) && 
+                        context.Properties.Any(row=>row.Building.Equals(newProperty.Building)) && 
+                        context.Properties.Any(row=>row.Street.Equals(newProperty.Street)) && 
+                        context.Properties.Any(row=>row.City.Equals(newProperty.City)) && 
+                        context.Properties.Any(row=>row.Region.Equals(newProperty.Region)) &&
+                        context.Properties.Any(row=>row.Country.Equals(newProperty.Country)) && 
+                        context.Properties.Any(row=>row.ZipCode.Equals(newProperty.ZipCode))
+                    )
+                    {
+                        ModelState.AddModelError("", "This Property already exists.");
+                    return View();
+                    }
                 //Create UserDTO
-
+                Property newPropertyDTO = new Models.Data.Property()
+                {
+                    Name = newProperty.Name,
+                    Unit = newProperty.Unit,
+                    Building = newProperty.Building,
+                    Street = newProperty.Street,
+                    City = newProperty.City,
+                    Region = newProperty.Region,
+                    Country = newProperty.Country,
+                    ZipCode = newProperty.ZipCode,
+                    Rating = 0
+                };
                 //Add to context
-
+                newPropertyDTO = context.Properties.Add(newPropertyDTO);
                 // Save Changes
+                context.SaveChanges();
+            }
 
-            //Redirect to Properties page.
-            return View();
+                //Redirect to Properties page.
+                return View("PropertyProfile");
         }
 
         [HttpGet]
@@ -76,12 +106,34 @@ namespace RateMyLandlord.Controllers
 
         public ActionResult PropertyProfile(int Id)
         {
+            PropertyProfileViewModel propertyVM;
             //Retrieve the property from the DB
-
+            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            {
                 //Populate the PropertyProfileViewModel
+                Property propertyDTO = context.Properties.FirstOrDefault(x => x.Id == Id);
+                if(propertyDTO == null)
+                {
+                    ModelState.AddModelError("", "Invalid Property Id");
+                }
+                propertyVM = new PropertyProfileViewModel()
+                {
+                    Id = propertyDTO.Id,
+                    Name = propertyDTO.Name, 
+                    Unit = propertyDTO.Unit, 
+                    Building = propertyDTO.Building, 
+                    Street = propertyDTO.Street, 
+                    City = propertyDTO.City, 
+                    Region = propertyDTO.Region, 
+                    Country = propertyDTO.Country, 
+                    ZipCode = propertyDTO.ZipCode, 
+                    Rating = propertyDTO.Rating
+
+                };
+            }
 
             //Return the View with the ViewModel
-            return View();
+            return View(propertyVM);
         }
 
         [HttpGet]

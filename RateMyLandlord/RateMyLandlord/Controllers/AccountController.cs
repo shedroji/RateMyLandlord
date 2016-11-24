@@ -62,8 +62,11 @@ namespace RateMyLandlord.Controllers
                     Username = newUser.Username,
                     Email = newUser.Email,
                     Password = hashedPassword,
+                    AccountType = newUser.AccountType,
                     IsActive = true,
                     IsAdmin = false,
+                    IsLandlord = newUser.IsLandlord,
+                    landlordID = newUser.LandlordId,
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now
                 };

@@ -200,10 +200,10 @@
     <Content Include="Views\Account\UserNavPartial.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Property\Create.cshtml" />
+    <Content Include="Views\Property\PropertyProfile.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Property\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
