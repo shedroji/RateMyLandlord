@@ -56,7 +56,7 @@ namespace RateMyLandlord.Controllers
                     )
                     {
                         ModelState.AddModelError("", "This Property already exists.");
-                    return View();
+                        return View();
                     }
                 //Create UserDTO
                 Property newPropertyDTO = new Models.Data.Property()
@@ -69,7 +69,9 @@ namespace RateMyLandlord.Controllers
                     Region = newProperty.Region,
                     Country = newProperty.Country,
                     ZipCode = newProperty.ZipCode,
-                    Rating = 0
+                    Rating = newProperty.Rating, 
+                    RatingDescription = newProperty.RatingDescription, 
+                    Description = newProperty.Description
                 };
                 //Add to context
                 newPropertyDTO = context.Properties.Add(newPropertyDTO);
@@ -78,7 +80,7 @@ namespace RateMyLandlord.Controllers
             }
 
                 //Redirect to Properties page.
-                return View("PropertyProfile");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -134,7 +136,9 @@ namespace RateMyLandlord.Controllers
                     Region = propertyDTO.Region, 
                     Country = propertyDTO.Country, 
                     ZipCode = propertyDTO.ZipCode, 
-                    Rating = propertyDTO.Rating
+                    Rating = propertyDTO.Rating, 
+                    RatingDescription = propertyDTO.RatingDescription,
+                    Description = propertyDTO.Description
 
                 };
             }

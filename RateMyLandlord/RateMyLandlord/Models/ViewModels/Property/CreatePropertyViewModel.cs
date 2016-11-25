@@ -30,9 +30,15 @@ namespace RateMyLandlord.Models.ViewModels.Property
 
         public string Country { get; set; }
 
+        [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Invalid Zip")]
         public string ZipCode { get; set; }
 
         public int Rating { get; set; }
+
+        public string RatingDescription { get; set; }
+
+        [Required]
+        public string Description { get; set; }
 
     }
 }
