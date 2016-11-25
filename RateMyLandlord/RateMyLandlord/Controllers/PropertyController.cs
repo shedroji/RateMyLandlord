@@ -17,8 +17,15 @@ namespace RateMyLandlord.Controllers
         // GET: Property
         public ActionResult Index()
         {
-            return View();
+            List<PropertyViewModel> propertyVM;
+            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            {
+                propertyVM = context.Properties.ToArray().Select(x => new PropertyViewModel(x)).ToList();
+
+            }
+            return View(propertyVM);
         }
+
         [HttpGet]
         public ActionResult Create()
         {

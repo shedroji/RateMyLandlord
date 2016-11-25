@@ -151,6 +151,7 @@
     <Compile Include="Models\ViewModels\Correspondence\ContactEmailViewModel.cs" />
     <Compile Include="Models\ViewModels\Property\CreatePropertyViewModel.cs" />
     <Compile Include="Models\ViewModels\Property\PropertyProfileViewModel.cs" />
+    <Compile Include="Models\ViewModels\Property\PropertyViewModel.cs" />
     <Compile Include="Models\ViewModels\Property\UpdateViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -202,6 +203,7 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Property\Create.cshtml" />
     <Content Include="Views\Property\PropertyProfile.cshtml" />
+    <Content Include="Views\Property\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
