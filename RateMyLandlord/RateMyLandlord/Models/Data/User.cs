@@ -10,6 +10,8 @@ namespace RateMyLandlord.Models.Data
     [Table("tblUser")]
     public class User
     {
+        internal int landlordID;
+
         [Key]
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -18,6 +20,8 @@ namespace RateMyLandlord.Models.Data
         public string Username { get; set; }
         public bool IsActive { get; set; }
         public bool IsAdmin { get; set; }
+        public string AccountType { get; set; }
+        public bool IsLandlord { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public string Password { get; internal set; }

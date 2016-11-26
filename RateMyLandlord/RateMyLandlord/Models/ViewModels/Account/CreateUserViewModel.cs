@@ -31,5 +31,7 @@ namespace RateMyLandlord.Models.ViewModels.Account
         public string AccountType { get; set; }
 
         public bool RecieveEmailNewsletter { get; set; }
+        public bool IsLandlord { get; internal set; }
+        public int LandlordId { get; internal set; }
     }
 }
