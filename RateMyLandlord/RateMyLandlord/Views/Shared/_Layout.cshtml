@@ -23,14 +23,20 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @if(Request.IsAuthenticated)
+                    <li>@using (@Html.BeginForm("Search", "Property"))
+                        {
+                            <input type="text" name="query" class="form-control" style="margin-top:.5em;" placeholder="Search"/>
+                        }
+                    </li>
+                    <li class="nav-divider"></li>
+                    @if (Request.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
-                        <li>@Html.Action("UserNavPartial","Account")</li>
+                        <li class="navbar-right">@Html.ActionLink("Logout", "Logout", "Account")</li>
+                        <li class="navbar-right">@Html.Action("UserNavPartial", "Account")</li>
                     }
                     else
                     {
-                        <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                        <li class="navbar-right">@Html.ActionLink("Login", "Login", "Account")</li>
                     }
 
                 </ul>
