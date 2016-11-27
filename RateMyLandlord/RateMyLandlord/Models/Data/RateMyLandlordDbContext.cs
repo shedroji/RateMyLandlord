@@ -9,6 +9,5 @@ namespace RateMyLandlord.Models.Data
     public class RateMyLandlordDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<Property> Properties { get; set; }
     }
 }

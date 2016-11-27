@@ -3,7 +3,6 @@ using RateMyLandlord.Models.ViewModels.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -41,7 +40,6 @@ namespace RateMyLandlord.Controllers
                 ModelState.AddModelError("", "Password does not match Password Confirm.");
                 return View(newUser);
             }
-            string hashedPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(newUser.Password, "MD5");
 
             //Create an instance of DbContext
             using (RateMyLandlordDbContext context = new RateMyLandlordDbContext())
@@ -54,8 +52,6 @@ namespace RateMyLandlord.Controllers
                     return View(newUser);
                 }
 
-
-
                 //Create our userDTO
                 User newUserDTO = new Models.Data.User()
                 {
@@ -63,12 +59,9 @@ namespace RateMyLandlord.Controllers
                     LastName = newUser.LastName,
                     Username = newUser.Username,
                     Email = newUser.Email,
-                    Password = hashedPassword,
-                    AccountType = newUser.AccountType,
+                    Password = newUser.Password,
                     IsActive = true,
                     IsAdmin = false,
-                    IsLandlord = newUser.IsLandlord,
-                    landlordID = newUser.LandlordId,
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now
                 };
@@ -111,204 +104,16 @@ namespace RateMyLandlord.Controllers
                 return View();
             }
             //open DB connection
-            bool isValid = false;
-            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
-            {
-                //Hash password
-                string hashedPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(loginUser.Password, "MD5");
 
-                //query for user based on username and password
-                if (context.Users.Any(
-                    row=>row.Username.Equals(loginUser.Username)
-                    && row.Password.Equals(hashedPassword)
-                    ))
-                {
-                    isValid = true;
-                }
-            
-            }
-                //if invalid send error
-            if(!isValid)
-            {
-                ModelState.AddModelError("", "Invalid Username or Password");
-                return View();
-            }
-            else
-            {
-                //valid, redirect to user profile 
-                System.Web.Security.FormsAuthentication.SetAuthCookie(loginUser.Username, loginUser.RememberMe);
+            //query for user based on username and password
 
-                return Redirect(FormsAuthentication.GetRedirectUrl(loginUser.Username, loginUser.RememberMe));
-            }                
-        }
+            //if invalid send error
 
-        public ActionResult Logout()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Login");
-        }
+            //valid, redirect to user profile 
+            System.Web.Security.FormsAuthentication.SetAuthCookie(loginUser.Username, loginUser.RememberMe);
 
-        public ActionResult UserNavPartial()
-        {
-            //Capture logged in user
-            string username;
-            username = this.User.Identity.Name;
-            UserNavPartialViewModel userNavVM;
-            //Get info from db
-            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
-            {
-                //Search for User
-                Models.Data.User userDTO = context.Users.FirstOrDefault(x => x.Username == username);
-                
-                if(userDTO == null) { return Content(""); }
-
-                //Build Partial view
-                userNavVM = new UserNavPartialViewModel
-                {
-                    Username = userDTO.Username,
-                    Id = userDTO.Id
-                };
-            }
-
-            //Send the View model 
-            return PartialView(userNavVM);
-        }
-
-        public ActionResult UserProfile()
-        {
-            //Capture logged in user
-            string username = User.Identity.Name;
-
-            //Retrieve the User from the DB
-            UserProfileViewModel profileVM;
-            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
-            {
-                User userDTO = context.Users.FirstOrDefault(row => row.Username == username);
-                if(userDTO == null)
-                {
-                    return Content("Invalid Username");
-                }
-
-                //Populate the UserProfileViewModel
-                profileVM = new UserProfileViewModel()
-                {
-                    Id = userDTO.Id,
-                    FirstName = userDTO.FirstName,
-                    LastName = userDTO.LastName,
-                    Email = userDTO.Email,
-                    Username = userDTO.Username,
-                    IsAdmin = userDTO.IsAdmin,
-                    IsLandlord = userDTO.IsAdmin
-                };
-
-            }
-
-            //Retrun the View with the viewModel
-            return View(profileVM);
-
-        }
-
-        [HttpGet]
-        public ActionResult Edit(int id)
-        {
-            //Get User by ID
-            EditViewModel editVM;
-            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
-            {
-                //Get User from DB
-                User userDTO = context.Users.Find(id);
-                if(userDTO == null)
-                {
-                    return Content("Invalid Id");
-                }
-
-                //Create EditVM
-                editVM = new EditViewModel
-                {
-                    Username = userDTO.Username, 
-                    FirstName = userDTO.FirstName, 
-                    LastName = userDTO.LastName,
-                    Email = userDTO.Email, 
-                    Id = userDTO.Id
-                };
-
-            }
-
-
-
-            //Send VM to the View
-            return View(editVM);
-
-        }
-
-        [HttpPost]
-        public ActionResult Edit(EditViewModel editVM)
-        {
-            //Variables
-            bool needsPasswordReset = false;
-            bool usernameHasChanged = false;
-            //Validate the model 
-            if (!ModelState.IsValid)
-            {
-                return View(editVM);
-            }
-
-            //Check for password change
-            if (!string.IsNullOrWhiteSpace(editVM.Password))
-            {
-                //Compare password with password confirm
-                if (editVM.Password != editVM.PasswordConfrim)
-                {
-                    ModelState.AddModelError("", "Password and Confrim Password Must Match.");
-                    return View(editVM);
-                }
-                else
-                {
-                    needsPasswordReset = true;
-                }
-            }
-
-
-            //Get user from DB
-            User userDTO;
-            using (RateMyLandlordDbContext context = new RateMyLandlordDbContext())
-            {
-                userDTO = context.Users.Find(editVM.Id);
-                if (userDTO == null) { return Content("Invalid User Id."); }
-
-                //Check for Username Change
-                if(userDTO.Username != editVM.Username)
-                {
-                    userDTO.Username = editVM.Username;
-                    usernameHasChanged = true;
-                }
-
-                //Set/ Update values from the view model
-                userDTO.FirstName = editVM.FirstName;
-                userDTO.LastName = editVM.LastName;
-
-
-
-                if (needsPasswordReset)
-                {
-                    userDTO.Password = editVM.Password;
-                }
-
-                //Save Changes
-                context.SaveChanges();
-            }
-            if(usernameHasChanged || needsPasswordReset)
-            {
-                TempData["LogoutMessage"] = "After a username or password change, please log in with the new credentials.";
-                return RedirectToAction("Logout");
-            }
-            else
-            {
-                return RedirectToAction("UserProfile");
-
-            }
-
-
+            return Redirect(FormsAuthentication.GetRedirectUrl(loginUser.Username, loginUser.RememberMe));
+                 
         }
     }
 }
