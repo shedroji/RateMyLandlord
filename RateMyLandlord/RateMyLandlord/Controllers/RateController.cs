@@ -8,8 +8,7 @@ namespace RateMyLandlord.Controllers
 {
     public class RateController : Controller
     {
-        // GET: Rate
-        [HttpGet]
+        // GET: RAte
         public ActionResult Index()
         {
             return View();
