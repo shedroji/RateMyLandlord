@@ -45,6 +45,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=16.1.1.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.16.1.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -132,14 +136,24 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CorrespondenceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Data\Property.cs" />
     <Compile Include="Models\Data\RateMyLandlordDbContext.cs" />
     <Compile Include="Models\Data\User.cs" />
     <Compile Include="Models\ViewModels\Account\CreateUserViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\EditViewModel.cs" />
     <Compile Include="Models\ViewModels\Account\LoginUserViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\UserNavPartialViewModel.cs" />
+    <Compile Include="Models\ViewModels\Account\UserProfileViewModel.cs" />
     <Compile Include="Models\ViewModels\Correspondence\ContactEmailViewModel.cs" />
+    <Compile Include="Models\ViewModels\Property\CreatePropertyViewModel.cs" />
+    <Compile Include="Models\ViewModels\Property\PropertyProfileViewModel.cs" />
+    <Compile Include="Models\ViewModels\Property\PropertyViewModel.cs" />
+    <Compile Include="Models\ViewModels\Property\UpdateViewModel.cs" />
+    <Compile Include="Models\ViewModels\Search\SearchResultViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +199,13 @@
     <Content Include="Views\Correspondence\Index.cshtml" />
     <Content Include="Views\Correspondence\emailConfirmation.cshtml" />
     <Content Include="Views\Account\Create.cshtml" />
+    <Content Include="Views\Account\UserNavPartial.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Property\Create.cshtml" />
+    <Content Include="Views\Property\PropertyProfile.cshtml" />
+    <Content Include="Views\Property\Index.cshtml" />
+    <Content Include="Views\Property\Search.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
