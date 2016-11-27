@@ -136,9 +136,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CorrespondenceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LandlordsController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
-    <Compile Include="Controllers\RateController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -155,6 +153,7 @@
     <Compile Include="Models\ViewModels\Property\PropertyProfileViewModel.cs" />
     <Compile Include="Models\ViewModels\Property\PropertyViewModel.cs" />
     <Compile Include="Models\ViewModels\Property\UpdateViewModel.cs" />
+    <Compile Include="Models\ViewModels\Search\SearchResultViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -195,6 +194,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Correspondence\Index.cshtml" />
     <Content Include="Views\Correspondence\emailConfirmation.cshtml" />
@@ -205,9 +205,7 @@
     <Content Include="Views\Property\Create.cshtml" />
     <Content Include="Views\Property\PropertyProfile.cshtml" />
     <Content Include="Views\Property\Index.cshtml" />
-    <Content Include="Views\Home\Properties.cshtml" />
-    <Content Include="Views\Landlords\Index.cshtml" />
-    <Content Include="Views\Rate\Index.cshtml" />
+    <Content Include="Views\Property\Search.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
