@@ -136,7 +136,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CorrespondenceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LandlordController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
+    <Compile Include="Controllers\RateController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -181,6 +183,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Landlord\Index.html" />
+    <Content Include="Views\Rate\Index.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -206,6 +210,8 @@
     <Content Include="Views\Property\PropertyProfile.cshtml" />
     <Content Include="Views\Property\Index.cshtml" />
     <Content Include="Views\Property\Search.cshtml" />
+    <Content Include="Views\Landlord\Index.cshtml" />
+    <Content Include="Views\Rate\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

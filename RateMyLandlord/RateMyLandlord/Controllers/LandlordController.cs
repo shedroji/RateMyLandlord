@@ -6,10 +6,9 @@ using System.Web.Mvc;
 
 namespace RateMyLandlord.Controllers
 {
-    public class LandlordsController : Controller
+    public class LandlordController : Controller
     {
         // GET: Landlords
-        [HttpGet]
         public ActionResult Index()
         {
             return View();
