@@ -54,6 +54,8 @@ namespace RateMyLandlord.Controllers
                     return View(newUser);
                 }
 
+
+
                 //Create our userDTO
                 User newUserDTO = new Models.Data.User()
                 {

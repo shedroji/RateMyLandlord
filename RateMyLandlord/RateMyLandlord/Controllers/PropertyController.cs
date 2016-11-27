@@ -1,5 +1,6 @@
 ﻿using RateMyLandlord.Models.Data;
 using RateMyLandlord.Models.ViewModels.Property;
+using RateMyLandlord.Models.ViewModels.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -145,6 +146,44 @@ namespace RateMyLandlord.Controllers
 
             //Return the View with the ViewModel
             return View(propertyVM);
+        }
+
+        [HttpPost]
+        public ActionResult Search(string query)
+        {
+            List<SearchResultViewModel> resultVMCollection = new List<SearchResultViewModel>();
+            using (RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            {
+                IQueryable<Property> propertyResults = context.Properties
+                    .Where(p =>
+                        p.Name.Contains(query) ||
+                        p.Unit.Contains(query) ||
+                        p.Building.Contains(query) ||
+                        p.Street.Contains(query) ||
+                        p.City.Contains(query) ||
+                        p.Region.Contains(query)
+                    );
+
+                foreach (var item in propertyResults)
+                {
+                    resultVMCollection.Add(new SearchResultViewModel(item));
+                }
+
+                IQueryable<User> userResults = context.Users
+                    .Where(u =>
+                        u.FirstName.Contains(query) ||
+                        u.LastName.Contains(query) ||
+                        u.Username.Contains(query) ||
+                        u.Email.Contains(query)
+                    );
+
+                foreach(var item in userResults)
+                {
+                    resultVMCollection.Add(new SearchResultViewModel(item));
+                }
+            }
+
+            return View(resultVMCollection);
         }
 
         [HttpGet]

@@ -153,6 +153,7 @@
     <Compile Include="Models\ViewModels\Property\PropertyProfileViewModel.cs" />
     <Compile Include="Models\ViewModels\Property\PropertyViewModel.cs" />
     <Compile Include="Models\ViewModels\Property\UpdateViewModel.cs" />
+    <Compile Include="Models\ViewModels\Search\SearchResultViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +205,7 @@
     <Content Include="Views\Property\Create.cshtml" />
     <Content Include="Views\Property\PropertyProfile.cshtml" />
     <Content Include="Views\Property\Index.cshtml" />
+    <Content Include="Views\Property\Search.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
