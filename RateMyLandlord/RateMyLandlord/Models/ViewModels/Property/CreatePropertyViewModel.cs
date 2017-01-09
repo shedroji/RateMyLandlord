@@ -39,6 +39,8 @@ namespace RateMyLandlord.Models.ViewModels.Property
 
         [Required]
         public string Description { get; set; }
-
+        public string StreetAddress { get; internal set; }
+        public string State { get; internal set; }
+        public bool UtilitiesIncluded { get; internal set; }
     }
 }

@@ -19,7 +19,7 @@ namespace RateMyLandlord.Controllers
         public ActionResult Index()
         {
             List<PropertyViewModel> propertyVM;
-            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            using(RMLDbContext context = new RMLDbContext())
             {
                 propertyVM = context.Properties.ToArray().Select(x => new PropertyViewModel(x)).ToList();
 
@@ -44,7 +44,7 @@ namespace RateMyLandlord.Controllers
             }
 
             //Create an instance of DBContext
-            using (RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            using (RMLDbContext context = new RMLDbContext())
             {
                 //Make sure the new Property is Unique by comparing addresses. 
                     if(context.Properties.Any(row=>row.Unit.Equals(newProperty.Unit)) && 
@@ -63,16 +63,14 @@ namespace RateMyLandlord.Controllers
                 Property newPropertyDTO = new Models.Data.Property()
                 {
                     Name = newProperty.Name,
-                    Unit = newProperty.Unit,
-                    Building = newProperty.Building,
-                    Street = newProperty.Street,
+                    StreetAddress = newProperty.StreetAddress,
                     City = newProperty.City,
-                    Region = newProperty.Region,
+                    State = newProperty.State,
                     Country = newProperty.Country,
                     ZipCode = newProperty.ZipCode,
-                    Rating = newProperty.Rating, 
-                    RatingDescription = newProperty.RatingDescription, 
-                    Description = newProperty.Description
+                    Rating = newProperty.Rating,  
+                    Description = newProperty.Description,
+                    UtilitiesIncluded = newProperty.UtilitiesIncluded
                 };
                 //Add to context
                 newPropertyDTO = context.Properties.Add(newPropertyDTO);
@@ -118,7 +116,7 @@ namespace RateMyLandlord.Controllers
         {
             PropertyProfileViewModel propertyVM;
             //Retrieve the property from the DB
-            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            using(RMLDbContext context = new RMLDbContext())
             {
                 //Populate the PropertyProfileViewModel
                 Property propertyDTO = context.Properties.FirstOrDefault(x => x.Id == Id);
@@ -152,7 +150,7 @@ namespace RateMyLandlord.Controllers
         public ActionResult Search(string query)
         {
             List<SearchResultViewModel> resultVMCollection = new List<SearchResultViewModel>();
-            using (RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            using (RMLDbContext context = new RMLDbContext())
             {
                 IQueryable<Property> propertyResults = context.Properties
                     .Where(p =>
