@@ -26,12 +26,7 @@ namespace RateMyLandlord.Models.ViewModels.Account
 
         [Required]
         public string PasswordConfirm { get; set; }
+        public int UserScore { get; set; }
 
-        [Required]
-        public string AccountType { get; set; }
-
-        public bool RecieveEmailNewsletter { get; set; }
-        public bool IsLandlord { get; internal set; }
-        public int LandlordId { get; internal set; }
     }
 }

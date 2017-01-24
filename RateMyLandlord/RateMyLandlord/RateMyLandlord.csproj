@@ -143,7 +143,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Data\Property.cs" />
-    <Compile Include="Models\Data\RateMyLandlordDbContext.cs" />
+    <Compile Include="Models\Data\RMLDbContext.cs" />
     <Compile Include="Models\Data\User.cs" />
     <Compile Include="Models\ViewModels\Account\CreateUserViewModel.cs" />
     <Compile Include="Models\ViewModels\Account\EditViewModel.cs" />
@@ -162,6 +162,10 @@
     <Content Include="App_Data\RateMyLandlord.mdf" />
     <Content Include="App_Data\RateMyLandlord_log.ldf">
       <DependentUpon>RateMyLandlord.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\RMLDbContext.mdf" />
+    <Content Include="App_Data\RMLDbContext_log.ldf">
+      <DependentUpon>RMLDbContext.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -202,7 +206,6 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Correspondence\Index.cshtml" />
     <Content Include="Views\Correspondence\emailConfirmation.cshtml" />
-    <Content Include="Views\Account\Create.cshtml" />
     <Content Include="Views\Account\UserNavPartial.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
@@ -212,10 +215,9 @@
     <Content Include="Views\Property\Search.cshtml" />
     <Content Include="Views\Landlord\Index.cshtml" />
     <Content Include="Views\Rate\Index.cshtml" />
+    <Content Include="Views\Account\Create.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Landlord\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

@@ -7,21 +7,19 @@ using System.Web;
 
 namespace RateMyLandlord.Models.Data
 {
-    [Table("tblProperty")]
+    [Table("tblProperties")]
     public class Property
     {
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Unit { get; set; }
-        public string Building { get; set; }
-        public string Street { get; set; }
+        public string StreetAddress { get; set; }
         public string City { get; set; }
-        public string Region { get; set; }
+        public string State { get; set; }
         public string Country { get; set; }
         public string ZipCode { get; set; }
         public int Rating { get; set; }
-        public string RatingDescription { get; set; }
         public string Description { get; set; }
+        public bool UtilitiesIncluded { get; set; }
     }
 }

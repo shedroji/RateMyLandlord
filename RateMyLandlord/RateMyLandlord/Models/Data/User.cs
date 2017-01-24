@@ -19,11 +19,9 @@ namespace RateMyLandlord.Models.Data
         public string Email { get; set; }
         public string Username { get; set; }
         public bool IsActive { get; set; }
-        public bool IsAdmin { get; set; }
-        public string AccountType { get; set; }
-        public bool IsLandlord { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public string Password { get; internal set; }
+        public int UserScore { get; set; }
     }
 }

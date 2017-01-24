@@ -44,7 +44,7 @@ namespace RateMyLandlord.Controllers
             string hashedPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(newUser.Password, "MD5");
 
             //Create an instance of DbContext
-            using (RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            using (RMLDbContext context = new RMLDbContext())
             {
                 //Make sure username is unique
                 if(context.Users.Any(row => row.Username.Equals(newUser.Username)))
@@ -64,13 +64,10 @@ namespace RateMyLandlord.Controllers
                     Username = newUser.Username,
                     Email = newUser.Email,
                     Password = hashedPassword,
-                    AccountType = newUser.AccountType,
                     IsActive = true,
-                    IsAdmin = false,
-                    IsLandlord = newUser.IsLandlord,
-                    landlordID = newUser.LandlordId,
                     DateCreated = DateTime.Now,
-                    DateModified = DateTime.Now
+                    DateModified = DateTime.Now,
+                    UserScore = 0
                 };
 
                 //Add to DbContext
@@ -112,7 +109,7 @@ namespace RateMyLandlord.Controllers
             }
             //open DB connection
             bool isValid = false;
-            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            using(RMLDbContext context = new RMLDbContext())
             {
                 //Hash password
                 string hashedPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(loginUser.Password, "MD5");
@@ -155,7 +152,7 @@ namespace RateMyLandlord.Controllers
             username = this.User.Identity.Name;
             UserNavPartialViewModel userNavVM;
             //Get info from db
-            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            using(RMLDbContext context = new RMLDbContext())
             {
                 //Search for User
                 Models.Data.User userDTO = context.Users.FirstOrDefault(x => x.Username == username);
@@ -181,7 +178,7 @@ namespace RateMyLandlord.Controllers
 
             //Retrieve the User from the DB
             UserProfileViewModel profileVM;
-            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            using(RMLDbContext context = new RMLDbContext())
             {
                 User userDTO = context.Users.FirstOrDefault(row => row.Username == username);
                 if(userDTO == null)
@@ -213,7 +210,7 @@ namespace RateMyLandlord.Controllers
         {
             //Get User by ID
             EditViewModel editVM;
-            using(RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            using(RMLDbContext context = new RMLDbContext())
             {
                 //Get User from DB
                 User userDTO = context.Users.Find(id);
@@ -271,7 +268,7 @@ namespace RateMyLandlord.Controllers
 
             //Get user from DB
             User userDTO;
-            using (RateMyLandlordDbContext context = new RateMyLandlordDbContext())
+            using (RMLDbContext context = new RMLDbContext())
             {
                 userDTO = context.Users.Find(editVM.Id);
                 if (userDTO == null) { return Content("Invalid User Id."); }
