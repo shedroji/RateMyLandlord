@@ -23,5 +23,8 @@ namespace RateMyLandlord.Models.Data
         public DateTime DateModified { get; set; }
         public string Password { get; internal set; }
         public int UserScore { get; set; }
+        public bool IsLandlord { get; set; }
+        public bool IsAdmin { get; set; }
+
     }
 }

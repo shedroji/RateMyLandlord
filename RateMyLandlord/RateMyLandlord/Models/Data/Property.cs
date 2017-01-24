@@ -21,5 +21,13 @@ namespace RateMyLandlord.Models.Data
         public int Rating { get; set; }
         public string Description { get; set; }
         public bool UtilitiesIncluded { get; set; }
+        public string Building { get; set; }
+        public string Unit { get; set; }
+        public string Street { get; set; }
+        public string Region { get; set; }
+        public string RatingDescription { get; set; }
+
+
+
     }
 }
