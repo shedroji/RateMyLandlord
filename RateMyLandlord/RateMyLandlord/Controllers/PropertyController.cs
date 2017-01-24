@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Configuration;
+using System.Data.Sql;
 
 /*
 * Create a way to store comments and a star rating system in another controller.

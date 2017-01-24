@@ -7,6 +7,9 @@ using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.Configuration;
+using System.Data.Sql;
+
 
 namespace RateMyLandlord.Controllers
 {
