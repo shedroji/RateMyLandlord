@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Data.SqlClient;
 
 namespace RateMyLandlord.Controllers
 {
@@ -86,6 +87,14 @@ namespace RateMyLandlord.Controllers
         {
 
             return View();
+        }
+
+        public string NewMethod()
+        {
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+            builder.DataSource = "aab9r52vz93xtk.ckiq2h7blt6x.us-east-2.rds.amazonaws.com";
+            
+            return "test";
         }
 
         [HttpPost]
