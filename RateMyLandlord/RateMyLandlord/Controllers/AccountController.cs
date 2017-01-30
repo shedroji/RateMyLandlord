@@ -203,8 +203,8 @@ namespace RateMyLandlord.Controllers
                     LastName = userDTO.LastName,
                     Email = userDTO.Email,
                     Username = userDTO.Username,
-                    IsAdmin = userDTO.IsAdmin,
-                    IsLandlord = userDTO.IsAdmin
+                    //IsAdmin = userDTO.IsAdmin,
+                    //IsLandlord = userDTO.IsAdmin
                 };
 
             }

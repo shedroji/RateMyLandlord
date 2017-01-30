@@ -47,11 +47,7 @@ namespace RateMyLandlord.Controllers
             using (RMLDbContext context = new RMLDbContext())
             {
                 //Make sure the new Property is Unique by comparing addresses. 
-                    if(context.Properties.Any(row=>row.Unit.Equals(newProperty.Unit)) && 
-                        context.Properties.Any(row=>row.Building.Equals(newProperty.Building)) && 
-                        context.Properties.Any(row=>row.Street.Equals(newProperty.Street)) && 
-                        context.Properties.Any(row=>row.City.Equals(newProperty.City)) && 
-                        context.Properties.Any(row=>row.Region.Equals(newProperty.Region)) &&
+                    if(context.Properties.Any(row=>row.City.Equals(newProperty.City)) && 
                         context.Properties.Any(row=>row.Country.Equals(newProperty.Country)) && 
                         context.Properties.Any(row=>row.ZipCode.Equals(newProperty.ZipCode))
                     )
@@ -128,17 +124,11 @@ namespace RateMyLandlord.Controllers
                 {
                     Id = propertyDTO.Id,
                     Name = propertyDTO.Name, 
-                    Unit = propertyDTO.Unit, 
-                    Building = propertyDTO.Building, 
-                    Street = propertyDTO.Street, 
                     City = propertyDTO.City, 
-                    Region = propertyDTO.Region, 
                     Country = propertyDTO.Country, 
                     ZipCode = propertyDTO.ZipCode, 
                     Rating = propertyDTO.Rating, 
-                    RatingDescription = propertyDTO.RatingDescription,
                     Description = propertyDTO.Description
-
                 };
             }
 
@@ -155,11 +145,7 @@ namespace RateMyLandlord.Controllers
                 IQueryable<Property> propertyResults = context.Properties
                     .Where(p =>
                         p.Name.Contains(query) ||
-                        p.Unit.Contains(query) ||
-                        p.Building.Contains(query) ||
-                        p.Street.Contains(query) ||
-                        p.City.Contains(query) ||
-                        p.Region.Contains(query)
+                        p.City.Contains(query)
                     );
 
                 foreach (var item in propertyResults)
