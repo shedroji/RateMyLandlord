@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Data.SqlClient;
+using System.ComponentModel;
 
 namespace RateMyLandlord.Controllers
 {
