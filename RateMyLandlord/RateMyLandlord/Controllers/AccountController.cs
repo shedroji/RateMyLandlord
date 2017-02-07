@@ -22,6 +22,8 @@ namespace RateMyLandlord.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            //IEnumerable<string> types = GetAllTypes();
+            CreateUserViewModel model = new CreateUserViewModel();
             return View();
         }
 
@@ -29,10 +31,18 @@ namespace RateMyLandlord.Controllers
         public ActionResult Create(CreateUserViewModel newUser)
         {
             //Validate the new User
-
+/**
+            List<SelectListItem> UserTypes = new List<SelectListItem>()
+            {
+            new SelectListItem { Text = "Tenant", Value = "Ten"},
+            new SelectListItem { Text = "Landlord", Value = "Land"}
+            };
+         
+   **/     
+        
 
             //Check That the required fields are set
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(newUser);
             }
@@ -55,9 +65,7 @@ namespace RateMyLandlord.Controllers
                     newUser.Username = "";
                     return View(newUser);
                 }
-
-
-
+                
                 //Create our userDTO
                 User newUserDTO = new Models.Data.User()
                 {
@@ -69,7 +77,7 @@ namespace RateMyLandlord.Controllers
                     IsActive = true,
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now,
-                    UserScore = 0
+                    UserType = newUser.UserType
                 };
 
                 //Add to DbContext
@@ -314,8 +322,6 @@ namespace RateMyLandlord.Controllers
                 return RedirectToAction("UserProfile");
 
             }
-
-
         }
     }
 }

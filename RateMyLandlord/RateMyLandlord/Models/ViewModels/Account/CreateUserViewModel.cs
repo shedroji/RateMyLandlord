@@ -34,8 +34,10 @@ namespace RateMyLandlord.Models.ViewModels.Account
         [DisplayName("Confirm Password")]
         public string PasswordConfirm { get; set; }
        
-        [DisplayName("User Score")]
-        public int UserScore { get; set; }
+        [Required]
+        [DisplayName("User Type")]
+        public string UserType { get; set; }    
 
+        public List<SelectListItem> UserTypes { get; set; }
     }
 }

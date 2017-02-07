@@ -22,8 +22,8 @@ namespace RateMyLandlord.Models.Data
         //public string PasswordConfirm { get; internal set; } //need to delete after script is updated
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
-        public int UserScore { get; set; }
         public bool IsActive { get; set; }
+        public string UserType { get; set; }
 
     }
 }
