@@ -36,8 +36,9 @@ namespace RateMyLandlord.Models.ViewModels.Account
        
         [Required]
         [DisplayName("User Type")]
-        public string UserType { get; set; }    
+        public string UserType { get; set; }
 
         public List<SelectListItem> UserTypes { get; set; }
+
     }
 }

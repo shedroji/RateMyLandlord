@@ -65,11 +65,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.UserType, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-            @Html.DropDownListFor(model => model.UserType, Model.UserTypes, "Select a user type")
-            @Html.ValidationMessageFor(model => model.UserType, "", new { @class = "text-danger" })
+                @Html.DropDownList("UserTypes", new List<SelectListItem> { new SelectListItem { Text = "Tenant", Value = "Tenant" },
+                                                                           new SelectListItem { Text = "Landlord", Value = "Landlord" }},
+                                                                           "--Select A User Type--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserType, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />

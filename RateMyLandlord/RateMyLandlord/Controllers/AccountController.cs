@@ -14,6 +14,8 @@ namespace RateMyLandlord.Controllers
 {
     public class AccountController : Controller
     {
+        List<SelectListItem> userTypesList = new List<SelectListItem>();
+
         // GET: Account
         public ActionResult Index()
         {
@@ -22,8 +24,6 @@ namespace RateMyLandlord.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            //IEnumerable<string> types = GetAllTypes();
-            CreateUserViewModel model = new CreateUserViewModel();
             return View();
         }
 
@@ -31,15 +31,7 @@ namespace RateMyLandlord.Controllers
         public ActionResult Create(CreateUserViewModel newUser)
         {
             //Validate the new User
-/**
-            List<SelectListItem> UserTypes = new List<SelectListItem>()
-            {
-            new SelectListItem { Text = "Tenant", Value = "Ten"},
-            new SelectListItem { Text = "Landlord", Value = "Land"}
-            };
-         
-   **/     
-        
+            
 
             //Check That the required fields are set
             if (!ModelState.IsValid)
@@ -301,7 +293,6 @@ namespace RateMyLandlord.Controllers
                 //Set/ Update values from the view model
                 userDTO.FirstName = editVM.FirstName;
                 userDTO.LastName = editVM.LastName;
-
 
 
                 if (needsPasswordReset)
