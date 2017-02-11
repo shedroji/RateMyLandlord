@@ -19,19 +19,30 @@ namespace RateMyLandlord.Controllers
         // GET: Account
         public ActionResult Index()
         {
+            //userTypesList.Add(new SelectListItem() { Text = "Tenant", Value = "Tenant" });
+            //userTypesList.Add(new SelectListItem() { Text = "Landlord", Value = "Landlord" });
             return this.RedirectToAction("Login");
         }
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            CreateUserViewModel cuvm = new CreateUserViewModel();
+            userTypesList.Add(new SelectListItem() { Text = "Tenant", Value = "Tenant" });
+            userTypesList.Add(new SelectListItem() { Text = "Landlord", Value = "Landlord" });
+            cuvm.UserTypes = userTypesList;
+            return View(cuvm);
         }
 
         [HttpPost]
         public ActionResult Create(CreateUserViewModel newUser)
         {
+            newUser.UserTypes = userTypesList;
+            // save string value from DropDownList 
+            //string strUserType = Request.Form["UserTypesddl"].ToString();
+            // assign userType to user 
+            //newUser.UserType = strUserType;
+
             //Validate the new User
-            
 
             //Check That the required fields are set
             if (!ModelState.IsValid)
@@ -57,7 +68,9 @@ namespace RateMyLandlord.Controllers
                     newUser.Username = "";
                     return View(newUser);
                 }
+
                 
+
                 //Create our userDTO
                 User newUserDTO = new Models.Data.User()
                 {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel;
+using RateMyLandlord.Models.Data;
 
 namespace RateMyLandlord.Models.ViewModels.Account
 {
@@ -38,7 +39,10 @@ namespace RateMyLandlord.Models.ViewModels.Account
         [DisplayName("User Type")]
         public string UserType { get; set; }
 
-        public List<SelectListItem> UserTypes { get; set; }
+        public List<Roles> _UserRoles;
+
+        public List<SelectListItem> UserTypes { get; set; }     
+
 
     }
 }
