@@ -7,30 +7,45 @@ using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Data.SqlClient;
+using System.ComponentModel;
 
 namespace RateMyLandlord.Controllers
 {
     public class AccountController : Controller
     {
+        List<SelectListItem> userTypesList = new List<SelectListItem>();
+
         // GET: Account
         public ActionResult Index()
         {
+            //userTypesList.Add(new SelectListItem() { Text = "Tenant", Value = "Tenant" });
+            //userTypesList.Add(new SelectListItem() { Text = "Landlord", Value = "Landlord" });
             return this.RedirectToAction("Login");
         }
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            CreateUserViewModel cuvm = new CreateUserViewModel();
+            userTypesList.Add(new SelectListItem() { Text = "Tenant", Value = "Tenant" });
+            userTypesList.Add(new SelectListItem() { Text = "Landlord", Value = "Landlord" });
+            cuvm.UserTypes = userTypesList;
+            return View(cuvm);
         }
 
         [HttpPost]
         public ActionResult Create(CreateUserViewModel newUser)
         {
+            newUser.UserTypes = userTypesList;
+            // save string value from DropDownList 
+            //string strUserType = Request.Form["UserTypesddl"].ToString();
+            // assign userType to user 
+            //newUser.UserType = strUserType;
+
             //Validate the new User
 
-
             //Check That the required fields are set
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(newUser);
             }
@@ -54,7 +69,7 @@ namespace RateMyLandlord.Controllers
                     return View(newUser);
                 }
 
-
+                
 
                 //Create our userDTO
                 User newUserDTO = new Models.Data.User()
@@ -67,7 +82,7 @@ namespace RateMyLandlord.Controllers
                     IsActive = true,
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now,
-                    UserScore = 0
+                    UserType = newUser.UserType
                 };
 
                 //Add to DbContext
@@ -86,6 +101,14 @@ namespace RateMyLandlord.Controllers
         {
 
             return View();
+        }
+
+        public string NewMethod()
+        {
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+            builder.DataSource = "aab9r52vz93xtk.ckiq2h7blt6x.us-east-2.rds.amazonaws.com";
+            
+            return "test";
         }
 
         [HttpPost]
@@ -194,8 +217,8 @@ namespace RateMyLandlord.Controllers
                     LastName = userDTO.LastName,
                     Email = userDTO.Email,
                     Username = userDTO.Username,
-                    IsAdmin = userDTO.IsAdmin,
-                    IsLandlord = userDTO.IsAdmin
+                    //IsAdmin = userDTO.IsAdmin,
+                    //IsLandlord = userDTO.IsAdmin
                 };
 
             }
@@ -285,7 +308,6 @@ namespace RateMyLandlord.Controllers
                 userDTO.LastName = editVM.LastName;
 
 
-
                 if (needsPasswordReset)
                 {
                     userDTO.Password = editVM.Password;
@@ -304,8 +326,6 @@ namespace RateMyLandlord.Controllers
                 return RedirectToAction("UserProfile");
 
             }
-
-
         }
     }
 }

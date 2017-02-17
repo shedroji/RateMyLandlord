@@ -13,11 +13,7 @@ namespace RateMyLandlord.Models.ViewModels.Property
         {
             this.Id = row.Id;
             this.Name = row.Name;
-            this.Unit = row.Unit;
-            this.Building = row.Building;
-            this.Street = row.Street;
             this.City = row.City;
-            this.Region = row.Region;
             this.Country = row.Country;
             this.ZipCode = row.ZipCode;
             this.Rating = row.Rating;

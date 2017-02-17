@@ -12,7 +12,7 @@ namespace RateMyLandlord.Models.ViewModels.Search
         {
             this.Id = p.Id;
             this.DisplayText = p.Name;
-            this.DisplaySubText = p.Building + " " + p.Unit + " " + p.Street + " " + p.City;
+            this.DisplaySubText = p.StreetAddress + " " + p.City;
             this.ResultType = nameof(Property);
         }
 
@@ -20,7 +20,7 @@ namespace RateMyLandlord.Models.ViewModels.Search
         {
             this.Id = u.Id;
             this.DisplayText = u.FirstName + " " + u.LastName;
-            this.DisplaySubText = (u.IsLandlord) ? "Landlord" : "";
+            //this.DisplaySubText = (u.IsLandlord) ? "Landlord" : "";
             this.ResultType = nameof(User);
         }
 
