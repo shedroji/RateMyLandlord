@@ -212,13 +212,13 @@
     <Content Include="Views\Account\UserNavPartial.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
-    <Content Include="Views\Property\Create.cshtml" />
-    <Content Include="Views\Property\PropertyProfile.cshtml" />
-    <Content Include="Views\Property\Index.cshtml" />
     <Content Include="Views\Property\Search.cshtml" />
     <Content Include="Views\Landlord\Index.cshtml" />
     <Content Include="Views\Rate\Index.cshtml" />
     <Content Include="Views\Account\Create.cshtml" />
+    <Content Include="Views\Property\Create.cshtml" />
+    <Content Include="Views\Property\Index.cshtml" />
+    <Content Include="Views\Property\PropertyProfile.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

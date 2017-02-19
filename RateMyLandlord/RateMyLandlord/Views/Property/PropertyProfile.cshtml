@@ -4,9 +4,10 @@
     ViewBag.Title = "PropertyProfile";
 }
 
-<h2>Property Profile</h2>
+<h2>PropertyProfile</h2>
 
 <div>
+    <h4>PropertyProfileViewModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -18,27 +19,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Unit)
+            @Html.DisplayNameFor(model => model.StreetAddress)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Unit)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Building)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Building)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Street)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Street)
+            @Html.DisplayFor(model => model.StreetAddress)
         </dd>
 
         <dt>
@@ -50,11 +35,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Region)
+            @Html.DisplayNameFor(model => model.State)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Region)
+            @Html.DisplayFor(model => model.State)
         </dd>
 
         <dt>
@@ -82,14 +67,6 @@
         </dd>
 
         <dt>
-            Reason for Rating
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RatingDescription)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Description)
         </dt>
 
@@ -97,8 +74,17 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.UtilitiesIncluded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UtilitiesIncluded)
+        </dd>
+
     </dl>
 </div>
 <p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

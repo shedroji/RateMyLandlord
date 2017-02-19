@@ -123,11 +123,13 @@ namespace RateMyLandlord.Controllers
                 propertyVM = new PropertyProfileViewModel()
                 {
                     Id = propertyDTO.Id,
-                    Name = propertyDTO.Name, 
+                    Name = propertyDTO.Name,
+                    StreetAddress = propertyDTO.StreetAddress, 
                     City = propertyDTO.City, 
                     Country = propertyDTO.Country, 
                     ZipCode = propertyDTO.ZipCode, 
-                    Rating = propertyDTO.Rating, 
+                    Rating = propertyDTO.Rating,
+                    UtilitiesIncluded = propertyDTO.UtilitiesIncluded, 
                     Description = propertyDTO.Description
                 };
             }

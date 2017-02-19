@@ -15,32 +15,23 @@ namespace RateMyLandlord.Models.ViewModels.Property
         public string Name { get; set; }
 
         [Required]
-        public string Unit { get; set; }
-
-        public string Building { get; set; }
-
-        [Required]
-        public string Street { get; set; }
+        public string StreetAddress { get; set; }
 
         [Required]
         public string City { get; set; }
 
         [Required]
-        public string Region { get; set; }
+        public string State { get; set; }
 
         public string Country { get; set; }
 
-        [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Invalid Zip")]
-        public string ZipCode { get; set; }
+        [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Invalid Zip Code Format")]
+        public int ZipCode { get; set; }
 
         public int Rating { get; set; }
 
-        public string RatingDescription { get; set; }
-
-        [Required]
         public string Description { get; set; }
-        public string StreetAddress { get; internal set; }
-        public string State { get; internal set; }
+
         public bool UtilitiesIncluded { get; internal set; }
     }
 }

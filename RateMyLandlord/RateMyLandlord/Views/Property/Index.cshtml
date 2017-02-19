@@ -1,10 +1,10 @@
-﻿@model List<RateMyLandlord.Models.ViewModels.Property.PropertyViewModel>
+﻿@model IEnumerable<RateMyLandlord.Models.ViewModels.Property.PropertyViewModel>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Properties</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,31 +12,31 @@
 <table class="table">
     <tr>
         <th>
-            Name
+            @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            Unit
+            @Html.DisplayNameFor(model => model.StreetAddress)
         </th>
         <th>
-            Building
+            @Html.DisplayNameFor(model => model.City)
         </th>
         <th>
-            Street
+            @Html.DisplayNameFor(model => model.State)
         </th>
         <th>
-            City
+            @Html.DisplayNameFor(model => model.Country)
         </th>
         <th>
-            Region
+            @Html.DisplayNameFor(model => model.ZipCode)
         </th>
         <th>
-            Country
+            @Html.DisplayNameFor(model => model.Rating)
         </th>
         <th>
-            ZipCode
+            @Html.DisplayNameFor(model => model.UtilitiesIncluded)
         </th>
         <th>
-            Rating
+            @Html.DisplayNameFor(model => model.Description)
         </th>
         <th></th>
     </tr>
@@ -47,19 +47,13 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Unit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Building)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Street)
+            @Html.DisplayFor(modelItem => item.StreetAddress)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.City)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Region)
+            @Html.DisplayFor(modelItem => item.State)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Country)
@@ -69,6 +63,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Rating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UtilitiesIncluded)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
             @Html.ActionLink("Details", "PropertyProfile", new { id=item.Id })
