@@ -103,13 +103,6 @@ namespace RateMyLandlord.Controllers
             return View();
         }
 
-        public string NewMethod()
-        {
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = "aab9r52vz93xtk.ckiq2h7blt6x.us-east-2.rds.amazonaws.com";
-            
-            return "test";
-        }
 
         [HttpPost]
         public ActionResult Login(LoginUserViewModel loginUser)
@@ -227,6 +220,44 @@ namespace RateMyLandlord.Controllers
             return View(profileVM);
 
         }
+
+        /// <summary>
+        /// Send email confirmation link.
+        /// Sets isEmailConfirmed bool to 1 if confirmed
+        /// This method will be called in our Create method for creating a new user
+        /// </summary>
+        public void SendEmailConfirmation(User confirmUser)
+        {
+            try
+            {
+                //Create email message object
+                System.Net.Mail.MailMessage email = new System.Net.Mail.MailMessage();
+
+                // populate message
+                email.To.Add(confirmUser.Email);
+                email.From = new System.Net.Mail.MailAddress("ratemylandlord03@gmail.com");
+                email.Subject = "Please Verify Your Email";
+                email.Body = string.Format(
+                    "Name: {0}\r\nMessage: {1}",
+                    ""
+                    );
+                email.IsBodyHtml = false;
+
+                //set up SMTP client
+                System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient();
+                smtpClient.Host = "mail.gmail.com";
+
+                //send message
+                smtpClient.Send(email);
+            }
+            catch(Exception ex)
+            {
+                // temporary logging
+                Console.WriteLine(ex.ToString());
+            }
+          
+        }
+
 
         [HttpGet]
         public ActionResult Edit(int id)
