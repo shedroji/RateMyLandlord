@@ -8,9 +8,9 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top blue-gray light-gray-text" style="color:#DDD1C7;">
         <div class="container">
-            <div class="navbar-header">
+            <div class="navbar-header" style="color:#DDD1C7;">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -20,23 +20,23 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Index", "Correspondence")</li>
-                    <li>@using (@Html.BeginForm("Search", "Property"))
+                    <li class="light-gray-text">@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li class="light-gray-text">@Html.ActionLink("About", "About", "Home")</li>
+                    <li class="light-gray-text">@Html.ActionLink("Contact", "Index", "Correspondence")</li>
+                    <li class="light-gray-text">@using (@Html.BeginForm("Search", "Property"))
                         {
                             <input type="text" name="query" class="form-control" style="margin-top:.5em;" placeholder="Search"/>
                         }
                     </li>
-                    <li class="nav-divider"></li>
+                    <li class="nav-divider light-gray-text"></li>
                     @if (Request.IsAuthenticated)
                     {
-                        <li class="navbar-right">@Html.ActionLink("Logout", "Logout", "Account")</li>
-                        <li class="navbar-right">@Html.Action("UserNavPartial", "Account")</li>
+                        <li class="navbar-right light-gray-text">@Html.ActionLink("Logout", "Logout", "Account")</li>
+                        <li class="navbar-right light-gray-text">@Html.Action("UserNavPartial", "Account")</li>
                     }
                     else
                     {
-                        <li class="navbar-right">@Html.ActionLink("Login", "Login", "Account")</li>
+                        <li class="navbar-right light-gray-text">@Html.ActionLink("Login", "Login", "Account")</li>
                     }
 
                 </ul>

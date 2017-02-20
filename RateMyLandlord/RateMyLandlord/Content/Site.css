@@ -22,3 +22,51 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.teal {
+    background-color: #488286 !important;
+}
+
+.light-blue {
+    background-color:#B7D5D4 !important;
+}
+
+.blue-gray{
+    background-color:#546A7E !important;
+}
+
+.dark-gray{
+    background-color:#2F2F2F !important;
+}
+
+.light-gray{
+    background-color:#D7D7E8 !important;
+}
+
+.teal-text {
+    color: #488286 !important;
+}
+
+.light-blue-text {
+    color:#B7D5D4 !important;
+}
+
+.blue-gray-text{
+    color:#546A7E !important;
+}
+
+.dark-gray-text{
+    color:#2F2F2F !important;
+}
+
+.light-gray-text{
+    color:#D7D7E8 !important;
+}
+
+.navbar-inverse .navbar-brand {
+    color: inherit !important;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: inherit;
+}
