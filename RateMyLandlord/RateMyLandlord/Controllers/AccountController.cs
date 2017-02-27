@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Data.SqlClient;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace RateMyLandlord.Controllers
 {
@@ -36,11 +37,11 @@ namespace RateMyLandlord.Controllers
         [HttpPost]
         public ActionResult Create(CreateUserViewModel newUser)
         {
-            newUser.UserTypes = userTypesList;
-            // save string value from DropDownList 
-            //string strUserType = Request.Form["UserTypesddl"].ToString();
-            // assign userType to user 
-            //newUser.UserType = strUserType;
+            //newUser.UserTypes = userTypesList;
+
+            Random randomCode = new Random();
+            int randNum = randomCode.Next(1000000);
+            string authCode = randNum.ToString("D6");
 
             //Validate the new User
 
@@ -68,9 +69,7 @@ namespace RateMyLandlord.Controllers
                     newUser.Username = "";
                     return View(newUser);
                 }
-
                 
-
                 //Create our userDTO
                 User newUserDTO = new Models.Data.User()
                 {
@@ -82,7 +81,8 @@ namespace RateMyLandlord.Controllers
                     IsActive = true,
                     DateCreated = DateTime.Now,
                     DateModified = DateTime.Now,
-                    UserType = newUser.UserType
+                    UserType = newUser.UserType,
+                    EmailConfirmed = false
                 };
 
                 //Add to DbContext
@@ -90,10 +90,60 @@ namespace RateMyLandlord.Controllers
 
                 //Save Changes
                 context.SaveChanges();
+
+                return RedirectToAction("SendEmailConfirmation", new { firstName = newUser.FirstName, emailAddress = newUser.Email, token = authCode });
             }
 
-            //Redirect to the Login Page
-            return RedirectToAction("login");
+            // if we made it this far something went wrong
+            return View(newUser);
+            
+        }
+
+        [AllowAnonymous]
+        public ActionResult Confirm(string Email)
+        {
+            ViewBag.Email = Email;
+            return View();
+        }
+
+        /// <summary>
+        /// Send email confirmation link.
+        /// Sets isEmailConfirmed bool to 1 if confirmed
+        /// This method will be called in our Create method for creating a new user
+        /// </summary>
+        [AllowAnonymous]
+        public async Task<ActionResult> SendEmailConfirmation(string firstName, string emailAddress, string token)
+        {
+            try
+            {
+                //Create email message object
+                System.Net.Mail.MailMessage email = new System.Net.Mail.MailMessage();
+
+                // populate message
+                email.To.Add(emailAddress);
+                email.From = new System.Net.Mail.MailAddress("ratemylandlord03@gmail.com");
+                email.Subject = "Please Verify Your Email";
+                email.Body = string.Format(
+                    "Hey {0}!\r\n {1}",
+                    firstName,
+                    "Please enter this code to validate your account " + token + "."
+                    );
+                email.IsBodyHtml = false;
+
+                //set up SMTP client
+                System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient();
+                smtpClient.Host = "mail.twc.com";
+
+                //send message
+                smtpClient.Send(email);
+            }
+            catch (Exception ex)
+            {
+                // temporary logging
+                Console.WriteLine(ex.ToString());
+            }
+
+            return RedirectToAction("Confirm", "Account", new { Email = emailAddress });
         }
 
         [HttpGet]
@@ -219,43 +269,6 @@ namespace RateMyLandlord.Controllers
             //Retrun the View with the viewModel
             return View(profileVM);
 
-        }
-
-        /// <summary>
-        /// Send email confirmation link.
-        /// Sets isEmailConfirmed bool to 1 if confirmed
-        /// This method will be called in our Create method for creating a new user
-        /// </summary>
-        public void SendEmailConfirmation(User confirmUser)
-        {
-            try
-            {
-                //Create email message object
-                System.Net.Mail.MailMessage email = new System.Net.Mail.MailMessage();
-
-                // populate message
-                email.To.Add(confirmUser.Email);
-                email.From = new System.Net.Mail.MailAddress("ratemylandlord03@gmail.com");
-                email.Subject = "Please Verify Your Email";
-                email.Body = string.Format(
-                    "Name: {0}\r\nMessage: {1}",
-                    ""
-                    );
-                email.IsBodyHtml = false;
-
-                //set up SMTP client
-                System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient();
-                smtpClient.Host = "mail.gmail.com";
-
-                //send message
-                smtpClient.Send(email);
-            }
-            catch(Exception ex)
-            {
-                // temporary logging
-                Console.WriteLine(ex.ToString());
-            }
-          
         }
 
 
