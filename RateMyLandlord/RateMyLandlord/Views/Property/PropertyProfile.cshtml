@@ -4,10 +4,10 @@
     ViewBag.Title = "PropertyProfile";
 }
 
-<h2>PropertyProfile</h2>
+<h2>This Property</h2>
 
 <div>
-    <h4>PropertyProfileViewModel</h4>
+    <h4>@Html.DisplayFor(model => model.StreetAddress) @Html.DisplayFor(model => model.City) @Html.DisplayFor(model => model.State), @Html.DisplayFor(model => model.ZipCode)</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StreetAddress)
+            Street Address
         </dt>
 
         <dd>
@@ -51,7 +51,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ZipCode)
+            Zip Code
         </dt>
 
         <dd>
@@ -75,7 +75,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UtilitiesIncluded)
+            Utilities Included
         </dt>
 
         <dd>
@@ -86,5 +86,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Results", "Index", new { id = Model.Id })
 </p>
