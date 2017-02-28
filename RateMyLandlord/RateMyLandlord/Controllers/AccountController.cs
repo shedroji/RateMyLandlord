@@ -9,11 +9,14 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Data.SqlClient;
 using System.ComponentModel;
+using log4net;
+using log4net.Config;
 
 namespace RateMyLandlord.Controllers
 {
     public class AccountController : Controller
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(AccountController));
         List<SelectListItem> userTypesList = new List<SelectListItem>();
 
         // GET: Account
@@ -56,43 +59,51 @@ namespace RateMyLandlord.Controllers
                 ModelState.AddModelError("", "Password does not match Password Confirm.");
                 return View(newUser);
             }
-            string hashedPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(newUser.Password, "MD5");
-
-            //Create an instance of DbContext
-            using (RMLDbContext context = new RMLDbContext())
+            try
             {
-                //Make sure username is unique
-                if(context.Users.Any(row => row.Username.Equals(newUser.Username)))
+
+                string hashedPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(newUser.Password, "MD5");
+
+                //Create an instance of DbContext
+                using (RMLDbContext context = new RMLDbContext())
                 {
-                    ModelState.AddModelError("", "Username '" + newUser.Username + "'already exists. Try again.");
-                    newUser.Username = "";
-                    return View(newUser);
-                }
+                    //Make sure username is unique
+                    if(context.Users.Any(row => row.Username.Equals(newUser.Username)))
+                    {
+                        ModelState.AddModelError("", "Username '" + newUser.Username + "'already exists. Try again.");
+                        newUser.Username = "";
+                        return View(newUser);
+                    }
 
                 
 
-                //Create our userDTO
-                User newUserDTO = new Models.Data.User()
-                {
-                    FirstName = newUser.FirstName,
-                    LastName = newUser.LastName,
-                    Username = newUser.Username,
-                    Email = newUser.Email,
-                    Password = hashedPassword,
-                    IsActive = true,
-                    DateCreated = DateTime.Now,
-                    DateModified = DateTime.Now,
-                    UserType = newUser.UserType
-                };
+                    //Create our userDTO
+                    User newUserDTO = new Models.Data.User()
+                    {
+                        FirstName = newUser.FirstName,
+                        LastName = newUser.LastName,
+                        Username = newUser.Username,
+                        Email = newUser.Email,
+                        Password = hashedPassword,
+                        IsActive = true,
+                        DateCreated = DateTime.Now,
+                        DateModified = DateTime.Now,
+                        UserType = newUser.UserType
+                    };
 
-                //Add to DbContext
-                newUserDTO = context.Users.Add(newUserDTO);
+                    //Add to DbContext
+                    newUserDTO = context.Users.Add(newUserDTO);
 
-                //Save Changes
-                context.SaveChanges();
+                    //Save Changes
+                    context.SaveChanges();
+                }
+            } catch (Exception ex)
+            {
+                log.Error("Could not create the Account, {}", ex);
             }
 
             //Redirect to the Login Page
+            log.Info("Account was created successfully");
             return RedirectToAction("login");
         }
 
