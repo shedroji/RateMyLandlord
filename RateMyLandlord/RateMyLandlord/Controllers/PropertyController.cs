@@ -1,4 +1,5 @@
-﻿using RateMyLandlord.Models.Data;
+﻿using log4net;
+using RateMyLandlord.Models.Data;
 using RateMyLandlord.Models.ViewModels.Property;
 using RateMyLandlord.Models.ViewModels.Search;
 using System;
@@ -15,6 +16,8 @@ namespace RateMyLandlord.Controllers
 {
     public class PropertyController : Controller
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(PropertyController));
+
         // GET: Property
         public ActionResult Index()
         {
@@ -44,34 +47,41 @@ namespace RateMyLandlord.Controllers
             }
 
             //Create an instance of DBContext
-            using (RMLDbContext context = new RMLDbContext())
+            try
             {
-                //Make sure the new Property is Unique by comparing addresses. 
-                    if(context.Properties.Any(row=>row.City.Equals(newProperty.City)) && 
-                        context.Properties.Any(row=>row.Country.Equals(newProperty.Country)) && 
-                        context.Properties.Any(row=>row.ZipCode.Equals(newProperty.ZipCode))
-                    )
-                    {
-                        ModelState.AddModelError("", "This Property already exists.");
-                        return View();
-                    }
-                //Create UserDTO
-                Property newPropertyDTO = new Models.Data.Property()
+                using (RMLDbContext context = new RMLDbContext())
                 {
-                    Name = newProperty.Name,
-                    StreetAddress = newProperty.StreetAddress,
-                    City = newProperty.City,
-                    State = newProperty.State,
-                    Country = newProperty.Country,
-                    ZipCode = newProperty.ZipCode,
-                    Rating = newProperty.Rating,  
-                    Description = newProperty.Description,
-                    UtilitiesIncluded = newProperty.UtilitiesIncluded
-                };
-                //Add to context
-                newPropertyDTO = context.Properties.Add(newPropertyDTO);
-                // Save Changes
-                context.SaveChanges();
+                    //Make sure the new Property is Unique by comparing addresses. 
+                        if(context.Properties.Any(row=>row.City.Equals(newProperty.City)) && 
+                            context.Properties.Any(row=>row.Country.Equals(newProperty.Country)) && 
+                            context.Properties.Any(row=>row.ZipCode.Equals(newProperty.ZipCode))
+                        )
+                        {
+                            ModelState.AddModelError("", "This Property already exists.");
+                            return View();
+                        }
+                    //Create propertyDTO
+                    Property newPropertyDTO = new Models.Data.Property()
+                    {
+                        Name = newProperty.Name,
+                        StreetAddress = newProperty.StreetAddress,
+                        City = newProperty.City,
+                        State = newProperty.State,
+                        Country = newProperty.Country,
+                        ZipCode = newProperty.ZipCode,
+                        Rating = newProperty.Rating,  
+                        Description = newProperty.Description,
+                        UtilitiesIncluded = newProperty.UtilitiesIncluded
+                    };
+                    //Add to context
+                    newPropertyDTO = context.Properties.Add(newPropertyDTO);
+                    // Save Changes
+                    context.SaveChanges();
+                }
+                log.Info("Property created successfully : " + newProperty.Name);
+            } catch (Exception ex)
+            {
+                log.Error("Failed to create property: " + newProperty.Name + " : {}",ex );
             }
 
                 //Redirect to Properties page.
@@ -79,33 +89,76 @@ namespace RateMyLandlord.Controllers
         }
 
         [HttpGet]
-        public ActionResult Update()
+        public ActionResult Update(int Id)
         {
             //Get property by ID
-
-            //Create Edit VM
+            EditViewModel editVM;
+            //Retrieve the property from the DB
+            using (RMLDbContext context = new RMLDbContext())
+            {
+                //Populate the PropertyProfileViewModel
+                Property propertyDTO = context.Properties.FirstOrDefault(x => x.Id == Id);
+                if (propertyDTO == null)
+                {
+                    ModelState.AddModelError("", "Invalid Property Id");
+                }
+                //Create Edit VM
+                editVM = new EditViewModel()
+                {
+                    Id = propertyDTO.Id,
+                    Name = propertyDTO.Name,
+                    StreetAddress = propertyDTO.StreetAddress,
+                    City = propertyDTO.City,
+                    State = propertyDTO.State,
+                    Country = propertyDTO.Country,
+                    ZipCode = propertyDTO.ZipCode,
+                    Rating = propertyDTO.Rating,
+                    UtilitiesIncluded = propertyDTO.UtilitiesIncluded,
+                    Description = propertyDTO.Description
+                };
+            }
 
             //Send VM to the view
 
-            return View();
+            return View(editVM);
         }
         
         [HttpPost]
-        public ActionResult Update(UpdateViewModel updateVM)
+        public ActionResult Update(EditViewModel editVM)
         {
             //Variables
+            Property propertyDTO;
+            using (RMLDbContext context = new RMLDbContext())
+            {
+                //Get property from DB
+                propertyDTO = context.Properties.Find(editVM.Id);
+                if (propertyDTO == null) { return Content("Invalid User Id."); }
 
-            //Validate the model
-
-            //Get property from DB
-
-                //Set / Update values from the view Model
+                //Set/ Update values from the view model
+                propertyDTO.Name = editVM.Name;
+                propertyDTO.StreetAddress = editVM.StreetAddress;
+                propertyDTO.City = editVM.City;
+                propertyDTO.State = editVM.State;
+                propertyDTO.ZipCode = editVM.ZipCode;
+                propertyDTO.Rating = editVM.Rating;
+                propertyDTO.UtilitiesIncluded = editVM.UtilitiesIncluded;
+                propertyDTO.Description = editVM.Description;
 
                 //Save Changes
+                try
+                {
+                    context.SaveChanges();
+                    log.Info("Property " + propertyDTO.Name + " updated!");
+                }
+                catch (Exception ex)
+                {
+                    log.Error("Could not get Property to edit : {}", ex);
+                }
+            }
 
             //Return user to property page
-            
-            return View();
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult PropertyProfile(int Id)

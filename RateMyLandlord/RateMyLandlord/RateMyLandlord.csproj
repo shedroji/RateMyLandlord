@@ -162,6 +162,7 @@
     <Compile Include="Models\ViewModels\Account\UserNavPartialViewModel.cs" />
     <Compile Include="Models\ViewModels\Account\UserProfileViewModel.cs" />
     <Compile Include="Models\ViewModels\Correspondence\ContactEmailViewModel.cs" />
+    <Compile Include="Models\ViewModels\Property\EditViewModel.cs" />
     <Compile Include="Models\ViewModels\Property\CreatePropertyViewModel.cs" />
     <Compile Include="Models\ViewModels\Property\PropertyProfileViewModel.cs" />
     <Compile Include="Models\ViewModels\Property\PropertyViewModel.cs" />
@@ -258,6 +259,7 @@
     <Content Include="Views\Property\Create.cshtml" />
     <Content Include="Views\Property\Index.cshtml" />
     <Content Include="Views\Property\PropertyProfile.cshtml" />
+    <Content Include="Views\Property\Update.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
