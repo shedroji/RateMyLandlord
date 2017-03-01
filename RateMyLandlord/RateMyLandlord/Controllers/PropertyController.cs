@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 
 /*
-* Create a way to store comments and a star rating system in another controller.
+* Create a way to store comments and a star rating system in another controller - Jake.
 */
 
 namespace RateMyLandlord.Controllers
