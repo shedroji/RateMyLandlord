@@ -41,7 +41,10 @@ namespace RateMyLandlord.Models.ViewModels.Account
 
         public List<Roles> _UserRoles;
 
-        public List<SelectListItem> UserTypes { get; set; }     
+        public List<SelectListItem> UserTypes { get; set; }
+
+        [DisplayName("Verification Code")]
+        public string VerificationCode { get; set; }
 
 
     }

@@ -1,0 +1,36 @@
+﻿@model RateMyLandlord.Models.ViewModels.Account.CreateUserViewModel
+
+@{
+    ViewBag.Title = "Confirmation Email Sent!";
+}
+<h2>@ViewBag.Title</h2>
+
+    <div>
+        Please check your inbox. A confirmation email has been sent to @ViewBag.Email
+    </div>
+@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+        <h4></h4>
+        <hr />
+        <br />
+        <br />
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VerificationCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VerificationCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.VerificationCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </div>
+    
+    } 

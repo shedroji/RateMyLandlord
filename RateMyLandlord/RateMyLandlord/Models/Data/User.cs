@@ -24,6 +24,7 @@ namespace RateMyLandlord.Models.Data
         public DateTime DateModified { get; set; }
         public bool IsActive { get; set; }
         public string UserType { get; set; }
+        public bool EmailConfirmed { get; set; }
 
     }
 }

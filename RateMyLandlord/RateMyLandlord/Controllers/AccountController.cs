@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Data.SqlClient;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using log4net;
 using log4net.Config;
 
@@ -39,11 +40,11 @@ namespace RateMyLandlord.Controllers
         [HttpPost]
         public ActionResult Create(CreateUserViewModel newUser)
         {
-            newUser.UserTypes = userTypesList;
-            // save string value from DropDownList 
-            //string strUserType = Request.Form["UserTypesddl"].ToString();
-            // assign userType to user 
-            //newUser.UserType = strUserType;
+            //newUser.UserTypes = userTypesList;
+
+            Random randomCode = new Random();
+            int randNum = randomCode.Next(1000000);
+            string authCode = randNum.ToString("D6");
 
             //Validate the new User
 
@@ -64,47 +65,91 @@ namespace RateMyLandlord.Controllers
 
                 string hashedPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(newUser.Password, "MD5");
 
-                //Create an instance of DbContext
-                using (RMLDbContext context = new RMLDbContext())
+            //Create an instance of DbContext
+            using (RMLDbContext context = new RMLDbContext())
+            {
+                //Make sure username is unique
+                if(context.Users.Any(row => row.Username.Equals(newUser.Username)))
                 {
-                    //Make sure username is unique
-                    if(context.Users.Any(row => row.Username.Equals(newUser.Username)))
-                    {
-                        ModelState.AddModelError("", "Username '" + newUser.Username + "'already exists. Try again.");
-                        newUser.Username = "";
-                        return View(newUser);
-                    }
-
+                    ModelState.AddModelError("", "Username '" + newUser.Username + "'already exists. Try again.");
+                    newUser.Username = "";
+                    return View(newUser);
+                }
                 
-
-                    //Create our userDTO
-                    User newUserDTO = new Models.Data.User()
-                    {
-                        FirstName = newUser.FirstName,
-                        LastName = newUser.LastName,
-                        Username = newUser.Username,
-                        Email = newUser.Email,
-                        Password = hashedPassword,
-                        IsActive = true,
-                        DateCreated = DateTime.Now,
-                        DateModified = DateTime.Now,
-                        UserType = newUser.UserType
-                    };
+                //Create our userDTO
+                User newUserDTO = new Models.Data.User()
+                {
+                    FirstName = newUser.FirstName,
+                    LastName = newUser.LastName,
+                    Username = newUser.Username,
+                    Email = newUser.Email,
+                    Password = hashedPassword,
+                    IsActive = true,
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                    UserType = newUser.UserType,
+                    EmailConfirmed = false
+                };
 
                     //Add to DbContext
                     newUserDTO = context.Users.Add(newUserDTO);
 
-                    //Save Changes
-                    context.SaveChanges();
-                }
-            } catch (Exception ex)
-            {
-                log.Error("Could not create the Account, {}", ex);
+                //Save Changes
+                context.SaveChanges();
+
+                return RedirectToAction("SendEmailConfirmation", new { firstName = newUser.FirstName, emailAddress = newUser.Email, token = authCode });
             }
 
-            //Redirect to the Login Page
-            log.Info("Account was created successfully for : " + newUser.FirstName + " " + newUser.LastName);
-            return RedirectToAction("login");
+            // if we made it this far something went wrong
+            return View(newUser);
+            
+        }
+
+        [AllowAnonymous]
+        public ActionResult Confirm(string Email)
+        {
+            ViewBag.Email = Email;
+            return View();
+        }
+
+        /// <summary>
+        /// Send email confirmation link.
+        /// Sets isEmailConfirmed bool to 1 if confirmed
+        /// This method will be called in our Create method for creating a new user
+        /// </summary>
+        [AllowAnonymous]
+        public async Task<ActionResult> SendEmailConfirmation(string firstName, string emailAddress, string token)
+        {
+            try
+            {
+                //Create email message object
+                System.Net.Mail.MailMessage email = new System.Net.Mail.MailMessage();
+
+                // populate message
+                email.To.Add(emailAddress);
+                email.From = new System.Net.Mail.MailAddress("ratemylandlord03@gmail.com");
+                email.Subject = "Please Verify Your Email";
+                email.Body = string.Format(
+                    "Hey {0}!\r\n {1}",
+                    firstName,
+                    "Please enter this code to validate your account " + token + "."
+                    );
+                email.IsBodyHtml = false;
+
+                //set up SMTP client
+                System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient();
+                smtpClient.Host = "mail.twc.com";
+
+                //send message
+                smtpClient.Send(email);
+            }
+            catch (Exception ex)
+            {
+                // temporary logging
+                Console.WriteLine(ex.ToString());
+            }
+
+            return RedirectToAction("Confirm", "Account", new { Email = emailAddress });
         }
 
         [HttpGet]
@@ -277,7 +322,8 @@ namespace RateMyLandlord.Controllers
             }
             catch(Exception ex)
             {
-                log.Error("Failed to send Validation email : {}", ex);
+                // temporary logging
+                Console.WriteLine(ex.ToString());
             }
           
         }
