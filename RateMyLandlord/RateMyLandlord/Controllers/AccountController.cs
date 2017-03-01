@@ -55,7 +55,7 @@ namespace RateMyLandlord.Controllers
             }
 
             //Check password matches confirmpassword
-            if(!newUser.Password.Equals(newUser.PasswordConfirm))
+            if (!newUser.Password.Equals(newUser.PasswordConfirm))
             {
                 ModelState.AddModelError("", "Password does not match Password Confirm.");
                 return View(newUser);
@@ -65,44 +65,52 @@ namespace RateMyLandlord.Controllers
 
                 string hashedPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(newUser.Password, "MD5");
 
-            //Create an instance of DbContext
-            using (RMLDbContext context = new RMLDbContext())
-            {
-                //Make sure username is unique
-                if(context.Users.Any(row => row.Username.Equals(newUser.Username)))
+                //Create an instance of DbContext
+                using (RMLDbContext context = new RMLDbContext())
                 {
-                    ModelState.AddModelError("", "Username '" + newUser.Username + "'already exists. Try again.");
-                    newUser.Username = "";
-                    return View(newUser);
-                }
-                
-                //Create our userDTO
-                User newUserDTO = new Models.Data.User()
-                {
-                    FirstName = newUser.FirstName,
-                    LastName = newUser.LastName,
-                    Username = newUser.Username,
-                    Email = newUser.Email,
-                    Password = hashedPassword,
-                    IsActive = true,
-                    DateCreated = DateTime.Now,
-                    DateModified = DateTime.Now,
-                    UserType = newUser.UserType,
-                    EmailConfirmed = false
-                };
+                    //Make sure username is unique
+                    if (context.Users.Any(row => row.Username.Equals(newUser.Username)))
+                    {
+                        ModelState.AddModelError("", "Username '" + newUser.Username + "'already exists. Try again.");
+                        newUser.Username = "";
+                        return View(newUser);
+                    }
+
+                    //Create our userDTO
+                    User newUserDTO = new Models.Data.User()
+                    {
+                        FirstName = newUser.FirstName,
+                        LastName = newUser.LastName,
+                        Username = newUser.Username,
+                        Email = newUser.Email,
+                        Password = hashedPassword,
+                        IsActive = true,
+                        DateCreated = DateTime.Now,
+                        DateModified = DateTime.Now,
+                        UserType = newUser.UserType,
+                        EmailConfirmed = false
+                    };
 
                     //Add to DbContext
                     newUserDTO = context.Users.Add(newUserDTO);
 
-                //Save Changes
-                context.SaveChanges();
+                    //Save Changes
+                    context.SaveChanges();
 
-                return RedirectToAction("SendEmailConfirmation", new { firstName = newUser.FirstName, emailAddress = newUser.Email, token = authCode });
+                    return RedirectToAction("SendEmailConfirmation", new { firstName = newUser.FirstName, emailAddress = newUser.Email, token = authCode });
+                }
+
             }
-
+            catch (Exception ex)
+            {
+                // temporary logging
+                Console.WriteLine(ex.ToString());
+            }
             // if we made it this far something went wrong
+            userTypesList.Add(new SelectListItem() { Text = "Tenant", Value = "Tenant" });
+            userTypesList.Add(new SelectListItem() { Text = "Landlord", Value = "Landlord" });
+            newUser.UserTypes = userTypesList;
             return View(newUser);
-            
         }
 
         [AllowAnonymous]
@@ -290,44 +298,6 @@ namespace RateMyLandlord.Controllers
             return View(profileVM);
 
         }
-
-        /// <summary>
-        /// Send email confirmation link.
-        /// Sets isEmailConfirmed bool to 1 if confirmed
-        /// This method will be called in our Create method for creating a new user
-        /// </summary>
-        public void SendEmailConfirmation(User confirmUser)
-        {
-            try
-            {
-                //Create email message object
-                System.Net.Mail.MailMessage email = new System.Net.Mail.MailMessage();
-
-                // populate message
-                email.To.Add(confirmUser.Email);
-                email.From = new System.Net.Mail.MailAddress("ratemylandlord03@gmail.com");
-                email.Subject = "Please Verify Your Email";
-                email.Body = string.Format(
-                    "Name: {0}\r\nMessage: {1}",
-                    ""
-                    );
-                email.IsBodyHtml = false;
-
-                //set up SMTP client
-                System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient();
-                smtpClient.Host = "mail.gmail.com";
-
-                //send message
-                smtpClient.Send(email);
-            }
-            catch(Exception ex)
-            {
-                // temporary logging
-                Console.WriteLine(ex.ToString());
-            }
-          
-        }
-
 
         [HttpGet]
         public ActionResult Edit(int id)
