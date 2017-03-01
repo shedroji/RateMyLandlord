@@ -103,7 +103,7 @@ namespace RateMyLandlord.Controllers
             }
 
             //Redirect to the Login Page
-            log.Info("Account was created successfully");
+            log.Info("Account was created successfully for : " + newUser.FirstName + " " + newUser.LastName);
             return RedirectToAction("login");
         }
 
@@ -136,23 +136,31 @@ namespace RateMyLandlord.Controllers
             }
             //open DB connection
             bool isValid = false;
-            using(RMLDbContext context = new RMLDbContext())
+            try
             {
-                //Hash password
-                string hashedPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(loginUser.Password, "MD5");
-
-                //query for user based on username and password
-                if (context.Users.Any(
-                    row=>row.Username.Equals(loginUser.Username)
-                    && row.Password.Equals(hashedPassword)
-                    ))
+                using(RMLDbContext context = new RMLDbContext())
                 {
-                    isValid = true;
-                }
+                    //Hash password
+                    string hashedPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(loginUser.Password, "MD5");
+
+                    //query for user based on username and password
+                    if (context.Users.Any(
+                        row=>row.Username.Equals(loginUser.Username)
+                        && row.Password.Equals(hashedPassword)
+                        ))
+                    {
+                        isValid = true;
+                    }
             
+                }
+
+                
+            } catch (Exception ex)
+            {
+                log.Error("Failed to Log in. {}", ex);
             }
-                //if invalid send error
-            if(!isValid)
+            //if invalid send error
+            if (!isValid)
             {
                 ModelState.AddModelError("", "Invalid Username or Password");
                 return View();
@@ -161,14 +169,20 @@ namespace RateMyLandlord.Controllers
             {
                 //valid, redirect to user profile 
                 System.Web.Security.FormsAuthentication.SetAuthCookie(loginUser.Username, loginUser.RememberMe);
-
+                log.Info(loginUser.Username + " logged in.");
                 return Redirect(FormsAuthentication.GetRedirectUrl(loginUser.Username, loginUser.RememberMe));
-            }                
+            }
         }
 
         public ActionResult Logout()
         {
-            FormsAuthentication.SignOut();
+            try
+            {
+                FormsAuthentication.SignOut();
+            } catch (Exception ex)
+            {
+                log.Error("Failed to log user out : {}", ex);
+            }
             return RedirectToAction("Login");
         }
 
@@ -263,8 +277,7 @@ namespace RateMyLandlord.Controllers
             }
             catch(Exception ex)
             {
-                // temporary logging
-                Console.WriteLine(ex.ToString());
+                log.Error("Failed to send Validation email : {}", ex);
             }
           
         }
@@ -356,7 +369,12 @@ namespace RateMyLandlord.Controllers
                 }
 
                 //Save Changes
-                context.SaveChanges();
+                try {
+                    context.SaveChanges();
+                } catch (Exception ex)
+                {
+                    log.Error("Could not get Account to edit : {}", ex);
+                }
             }
             if(usernameHasChanged || needsPasswordReset)
             {
