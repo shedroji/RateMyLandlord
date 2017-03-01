@@ -1,4 +1,5 @@
-﻿using RateMyLandlord.Models.ViewModels.Correspondence;
+﻿using log4net;
+using RateMyLandlord.Models.ViewModels.Correspondence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace RateMyLandlord.Controllers
 {
     public class CorrespondenceController : Controller
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(CorrespondenceController));
         // GET: Correspondence
         [HttpGet]
         public ActionResult Index()
@@ -35,26 +37,33 @@ namespace RateMyLandlord.Controllers
                 return View();
             }
 
-            //Create email message object
-            System.Net.Mail.MailMessage email = new System.Net.Mail.MailMessage();
+            try
+            {
+                //Create email message object
+                System.Net.Mail.MailMessage email = new System.Net.Mail.MailMessage();
 
-            // populate message
-            email.To.Add("ratemylandlord03@gmail.com");
-            email.From = new System.Net.Mail.MailAddress(contactMessage.Email);
-            email.Subject = contactMessage.Subject;
-            email.Body = string.Format(
-                "Name: {0}\r\nMessage: {1}",
-                contactMessage.Name,
-                contactMessage.Message
-                );
-            email.IsBodyHtml = false;
+                // populate message
+                email.To.Add("ratemylandlord03@gmail.com");
+                email.From = new System.Net.Mail.MailAddress(contactMessage.Email);
+                email.Subject = contactMessage.Subject;
+                email.Body = string.Format(
+                    "Name: {0}\r\nMessage: {1}",
+                    contactMessage.Name,
+                    contactMessage.Message
+                    );
+                email.IsBodyHtml = false;
 
-            //set up SMTP client
-            System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient();
-            smtpClient.Host = "mail.twc.com";
+                //set up SMTP client
+                System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient();
+                smtpClient.Host = "mail.twc.com";
 
-            //send message
-            smtpClient.Send(email);
+                //send message
+                smtpClient.Send(email);
+                log.Info("Email Sent!");
+            } catch (Exception ex)
+            {
+                log.Error("Failed to send correspondence email : {}", ex);
+            }
 
             //notify user that the message was sent. 
             return View("emailConfirmation");
