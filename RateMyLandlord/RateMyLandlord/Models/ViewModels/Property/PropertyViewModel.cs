@@ -18,6 +18,7 @@ namespace RateMyLandlord.Models.ViewModels.Property
             this.Country = row.Country;
             this.ZipCode = row.ZipCode;
             this.Rating = row.Rating;
+            this.UtilitiesIncluded = row.UtilitiesIncluded;
             this.Description = row.Description;
         }
 
