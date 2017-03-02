@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Microsoft.Owin.Security.Google;
 
 namespace RateMyLandlord
 {
@@ -35,7 +36,11 @@ namespace RateMyLandlord
             // appId: "",
             // appSecret: "");
 
-            //app.UseGoogleAuthentication();
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "214903610768-a2rc6iqlk3qa8m3hansom2bsmn5ajoj9.apps.googleusercontent.com",
+                ClientSecret = "0KLUlbpaOyEBFhXyq6jZ-Yrz"
+            });
         }
     }
 }

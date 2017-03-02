@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44371</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -197,6 +197,7 @@
     <Compile Include="Models\Data\User.cs" />
     <Compile Include="Models\Data\UserProperties.cs" />
     <Compile Include="Models\Data\UserRoles.cs" />
+    <Compile Include="Models\Data\UserValidation.cs" />
     <Compile Include="Models\ViewModels\Account\CreateUserViewModel.cs" />
     <Compile Include="Models\ViewModels\Account\EditViewModel.cs" />
     <Compile Include="Models\ViewModels\Account\LoginUserViewModel.cs" />
@@ -341,7 +342,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>10491</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:10491/</IISUrl>
+          <IISUrl>https://localhost:44371/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
