@@ -11,7 +11,8 @@ namespace RateMyLandlord.Models.Data
     public class UserValidation
     {
         [Key]
-        public int UserId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int User_Id { get; set; }
         public int ValidationCode { get; set; }
         public DateTime DateCreated { get; set; }
     }
