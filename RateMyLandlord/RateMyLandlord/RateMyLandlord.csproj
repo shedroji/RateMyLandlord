@@ -198,6 +198,7 @@
     <Compile Include="Models\Data\UserProperties.cs" />
     <Compile Include="Models\Data\UserRoles.cs" />
     <Compile Include="Models\Data\UserValidation.cs" />
+    <Compile Include="Models\ViewModels\Account\ConfirmUserViewModel.cs" />
     <Compile Include="Models\ViewModels\Account\CreateUserViewModel.cs" />
     <Compile Include="Models\ViewModels\Account\EditViewModel.cs" />
     <Compile Include="Models\ViewModels\Account\LoginUserViewModel.cs" />

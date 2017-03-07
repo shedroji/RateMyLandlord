@@ -91,10 +91,13 @@ namespace RateMyLandlord.Controllers
                         EmailConfirmed = false
                     };
 
+                    // get the max user id from the db and increment it by 1 to get the userID auto increment value from newUserDTO
+                    int newUserId = (int?)context.Users.Max(u => u.Id) + 1 ?? 1; 
+
                     //Create validationDTO
                     UserValidation newUserValidation = new UserValidation()
                     {
-                        User_Id = context.Users.Max(u => u.Id) + 1, // get the max user id from the db and increment it by 1 to get the userID auto increment value from newUserDTO
+                        User_Id = newUserId,
                         ValidationCode = authCode,
                         DateCreated = newUserDTO.DateCreated //done this way to ensure the date and time are the same
                     };
@@ -107,7 +110,10 @@ namespace RateMyLandlord.Controllers
                     //Save Changes
                     context.SaveChanges();
 
-                    return RedirectToAction("SendEmailConfirmation", new { firstName = newUser.FirstName, userID = newUserDTO.Id, emailAddress = newUser.Email, token = authCode });
+                    SendEmailConfirmation(newUser.FirstName, newUserId, newUser.Email, authCode);
+
+                    return RedirectToAction("Confirm", "Account", new { Email = newUser.Email, Id = newUserId });
+                    //return RedirectToAction("SendEmailConfirmation", new { firstName = newUser.FirstName, userID = newUserId, emailAddress = newUser.Email, token = authCode });
                 }
 
             }
@@ -128,10 +134,9 @@ namespace RateMyLandlord.Controllers
         /// Sets isEmailConfirmed bool to 1 if confirmed
         /// This method will be called in our Create method for creating a new user
         /// </summary>
-        [AllowAnonymous]
-        public async Task<ActionResult> SendEmailConfirmation(string firstName, int userID, string emailAddress, int token)
+        public void SendEmailConfirmation(string firstName, int userID, string emailAddress, int token)
         {
-            int userIdCopy = userID;
+            //int userIdCopy = userID;
             try
             {
                 //Create email message object
@@ -162,25 +167,44 @@ namespace RateMyLandlord.Controllers
                 Console.WriteLine(ex.ToString());
             }
 
-            return RedirectToAction("Confirm", "Account", new { Email = emailAddress, Id = userIdCopy, ValidationCode = token });
+            //return RedirectToAction("Confirm", "Account", new { Email = emailAddress, Id = userID });
+
         }
 
+        [HttpGet]
+        public ActionResult Confirm(string Email, int Id)
+        {
+            ViewBag.Email = Email;
+            
+            ConfirmUserViewModel user = new ConfirmUserViewModel()
+            {
+                User_Id = Id,
+                Email = Email
+            };
+            
+            return View(user);
+        }
+
+        [HttpPost]
         [AllowAnonymous]
-        public ActionResult Confirm(string Email, int Id, int ValidationCode)
+        public ActionResult Confirm(ConfirmUserViewModel validatedUser)
         {
             //Needs work
             //this code is executed on submit button click
-            ViewBag.Email = Email;
             try
             {
+                User dbUser = new User();
                 using (RMLDbContext context = new RMLDbContext())
                 {
+                    //validatedUser = context.UserValidation.Where(i => i.User_Id == Id).FirstOrDefault();
                     // grab the user who's account was just created
-                    UserValidation confirmedUser = context.UserValidation.Where(x => x.User_Id == Id && x.ValidationCode == ValidationCode).FirstOrDefault();
+                    //UserValidation confirmedUser = context.UserValidation.Where(x => x.User_Id == validatedUser.User_Id && x.ValidationCode == validatedUser.ValidationCode).FirstOrDefault();
+                    UserValidation confirmedUser = context.UserValidation.Where(x => x.ValidationCode == validatedUser.ValidationCode).FirstOrDefault();
+
                     if (confirmedUser != null)
                     {
                         // A user was returned, meaning the user id and token were valid. Make user Active in db, log them in, and redirect to login page
-                        User dbUser = context.Users.Where(w => w.Id == Id).FirstOrDefault();
+                        dbUser = context.Users.Where(w => w.Id == confirmedUser.User_Id).FirstOrDefault();
                         if (dbUser != null)
                         {
                             //set EmailConfirmed field to true, stage context for update, and save changes
@@ -190,13 +214,22 @@ namespace RateMyLandlord.Controllers
                             //Save Changes
                             context.SaveChanges();
                         }
+                       
                     }
+                    
                 }
-                return RedirectToAction("Index", "Home");
+                //valid, redirect to user profile 
+                FormsAuthentication.SetAuthCookie(dbUser.Username, false);
+                log.Info(dbUser.Username + " logged in.");
+                return Redirect(FormsAuthentication.GetRedirectUrl(dbUser.Username, false));
+                //return View();
+
             }
 
             catch(Exception ex)
             {
+                // temporary logging
+                Console.WriteLine(ex.ToString());
                 return View();
             }
         }
@@ -244,9 +277,7 @@ namespace RateMyLandlord.Controllers
                     {
                         isValid = true;
                     }
-            
                 }
-
                 
             } catch (Exception ex)
             {
