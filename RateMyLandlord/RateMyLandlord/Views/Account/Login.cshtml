@@ -3,6 +3,11 @@
     ViewBag.Title = "Login";
 }
 
+@if (ViewBag.Message != string.Empty)
+{
+    ViewBag.Message = "Success!";
+}
+
 <h2>Login</h2>
 @Html.ValidationSummary()
 @if(TempData["LogoutMessage"] != null)

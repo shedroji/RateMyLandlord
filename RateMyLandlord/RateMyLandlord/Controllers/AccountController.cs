@@ -168,20 +168,17 @@ namespace RateMyLandlord.Controllers
             }
 
             //return RedirectToAction("Confirm", "Account", new { Email = emailAddress, Id = userID });
-
         }
 
         [HttpGet]
         public ActionResult Confirm(string Email, int Id)
         {
             ViewBag.Email = Email;
-            
             ConfirmUserViewModel user = new ConfirmUserViewModel()
             {
                 User_Id = Id,
                 Email = Email
             };
-            
             return View(user);
         }
 
@@ -189,16 +186,12 @@ namespace RateMyLandlord.Controllers
         [AllowAnonymous]
         public ActionResult Confirm(ConfirmUserViewModel validatedUser)
         {
-            //Needs work
             //this code is executed on submit button click
             try
             {
                 User dbUser = new User();
                 using (RMLDbContext context = new RMLDbContext())
                 {
-                    //validatedUser = context.UserValidation.Where(i => i.User_Id == Id).FirstOrDefault();
-                    // grab the user who's account was just created
-                    //UserValidation confirmedUser = context.UserValidation.Where(x => x.User_Id == validatedUser.User_Id && x.ValidationCode == validatedUser.ValidationCode).FirstOrDefault();
                     UserValidation confirmedUser = context.UserValidation.Where(x => x.ValidationCode == validatedUser.ValidationCode).FirstOrDefault();
 
                     if (confirmedUser != null)
@@ -214,16 +207,13 @@ namespace RateMyLandlord.Controllers
                             //Save Changes
                             context.SaveChanges();
                         }
-                       
                     }
-                    
                 }
                 //valid, redirect to user profile 
-                FormsAuthentication.SetAuthCookie(dbUser.Username, false);
-                log.Info(dbUser.Username + " logged in.");
-                return Redirect(FormsAuthentication.GetRedirectUrl(dbUser.Username, false));
-                //return View();
-
+                return RedirectToAction("Login", "Account", new { message = "Success!" });
+                //FormsAuthentication.SetAuthCookie(dbUser.Username, false);
+                //log.Info(dbUser.Username + " logged in.");
+                //return Redirect(FormsAuthentication.GetRedirectUrl(dbUser.Username, false));
             }
 
             catch(Exception ex)
@@ -235,8 +225,9 @@ namespace RateMyLandlord.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string message = "")
         {
+            ViewBag.Message = message;
             return View();
         }
 
