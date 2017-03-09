@@ -167,7 +167,6 @@ namespace RateMyLandlord.Controllers
                 Console.WriteLine(ex.ToString());
             }
 
-            //return RedirectToAction("Confirm", "Account", new { Email = emailAddress, Id = userID });
         }
 
         [HttpGet]
@@ -211,9 +210,6 @@ namespace RateMyLandlord.Controllers
                 }
                 //valid, redirect to user profile 
                 return RedirectToAction("Login", "Account", new { message = "Success!" });
-                //FormsAuthentication.SetAuthCookie(dbUser.Username, false);
-                //log.Info(dbUser.Username + " logged in.");
-                //return Redirect(FormsAuthentication.GetRedirectUrl(dbUser.Username, false));
             }
 
             catch(Exception ex)
@@ -227,7 +223,12 @@ namespace RateMyLandlord.Controllers
         [HttpGet]
         public ActionResult Login(string message = "")
         {
-            ViewBag.Message = message;
+            if(message == string.Empty)
+            {
+                message = "Login";
+            }
+            
+            ViewBag.Title = message;
             return View();
         }
 

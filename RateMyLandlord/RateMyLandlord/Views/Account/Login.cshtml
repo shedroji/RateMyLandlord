@@ -1,14 +1,11 @@
 ﻿
-@{
-    ViewBag.Title = "Login";
-}
 
-@if (ViewBag.Message != string.Empty)
+@if (ViewBag.Title != "Login")
 {
-    ViewBag.Message = "Success!";
+    ViewBag.Title = "Success!";
 }
 
-<h2>Login</h2>
+<h2>@ViewBag.Title</h2>
 @Html.ValidationSummary()
 @if(TempData["LogoutMessage"] != null)
 {

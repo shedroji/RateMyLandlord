@@ -1,2 +1,1 @@
-﻿2017-03-07 00:34:10,527 INFO [9] RateMyLandlord.Controllers.AccountController.Confirm -  logged in.
-2017-03-07 00:40:41,766 INFO [11] RateMyLandlord.Controllers.AccountController.Confirm - spencer5 logged in.
+﻿
