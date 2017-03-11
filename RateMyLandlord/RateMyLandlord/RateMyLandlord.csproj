@@ -323,6 +323,7 @@
     <Content Include="Views\Property\PropertyProfile.cshtml" />
     <Content Include="Views\Property\Update.cshtml" />
     <Content Include="Views\Rate\StorePropertyRating.cshtml" />
+    <Content Include="Views\Rate\StorePropertyRatingPartial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

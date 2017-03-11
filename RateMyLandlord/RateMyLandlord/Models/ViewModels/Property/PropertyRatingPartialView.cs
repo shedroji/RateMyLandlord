@@ -10,8 +10,8 @@ namespace RateMyLandlord.Models.ViewModels.Property
         public int Id { get; set; }
         public int UserId { get; set; }
         public int PropertyId { get; set; }
-        public int Rating { get; set; }
+        public int pRating { get; set; }
         public string Comment { get; set; }
-        public double MonthlyRent { get; set; }
+        public float MonthlyRent { get; set; }
     }
 }

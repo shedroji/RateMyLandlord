@@ -28,11 +28,11 @@ namespace RateMyLandlord.Controllers
             //Vars
             string username = this.User.Identity.Name;
             //validate the rating and user
-            if (rating.Rating != null)
-            {
-                ModelState.AddModelError("", "Rating must not be Null");
-                return View();
-            }
+            if (rating.pRating != null)
+            //{
+            //    ModelState.AddModelError("", "Rating must not be Null");
+            //    return View();
+            //}
             if (string.IsNullOrWhiteSpace(username))
             {
                 ModelState.AddModelError("", "Please log in before rating.");
@@ -44,19 +44,18 @@ namespace RateMyLandlord.Controllers
             {
 
                 //has the user rated this propery?
-                if (context.Property_Ratings.Any(r => r.PropertyId.Equals(rating.PropertyId)) && context.Property_Ratings.Any(u => u.UserId.Equals(rating.UserId)))
-                {
-                    ModelState.AddModelError("", "YOu have already Rated this property");
-                    return View();
-                }
+                //if (context.Property_Ratings.Any(r => r.PropertyId.Equals(rating.PropertyId)) && context.Property_Ratings.Any(u => u.UserId.Equals(rating.UserId)))
+                //{
+                //    ModelState.AddModelError("", "YOu have already Rated this property");
+                //    return View();
+                //}
                 //populate the dto 
                 Property_Rating newPropertyRatingDTO = new Property_Rating()
                 {
-                    Id = rating.Id,
                     UserId = rating.UserId,
                     PropertyId = rating.PropertyId,
                     Comment = rating.Comment,
-                    pRating = rating.Rating,
+                    pRating = rating.pRating,
                     MonthlyRent = rating.MonthlyRent
                 };
                 newPropertyRatingDTO = context.Property_Ratings.Add(newPropertyRatingDTO);
@@ -66,7 +65,7 @@ namespace RateMyLandlord.Controllers
 
 
             //Return the view
-            return PartialView("ratingThankYou");
+            return View();
         }
     }
 }
