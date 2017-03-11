@@ -1,4 +1,4 @@
-﻿@model RateMyLandlord.Models.ViewModels.Account.CreateUserViewModel
+﻿@model RateMyLandlord.Models.ViewModels.Account.ConfirmUserViewModel
 
 @{
     ViewBag.Title = "Confirmation Email Sent!";
@@ -20,10 +20,10 @@
         <br />
 
         <div class="form-group">
-            @Html.LabelFor(model => model.VerificationCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ValidationCode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.VerificationCode, new { htmlAttributes = new {  @type="text", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.VerificationCode, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ValidationCode, new { htmlAttributes = new {  @type="text", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValidationCode, "", new { @class = "text-danger" })
             </div>
         </div>
 
