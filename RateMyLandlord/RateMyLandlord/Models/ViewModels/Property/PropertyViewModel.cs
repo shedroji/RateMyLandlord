@@ -22,6 +22,10 @@ namespace RateMyLandlord.Models.ViewModels.Property
             this.Description = row.Description;
         }
 
+        public PropertyViewModel()
+        {
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string StreetAddress { get; set; }
@@ -29,7 +33,7 @@ namespace RateMyLandlord.Models.ViewModels.Property
         public string State { get; set; }
         public string Country { get; set; }
         public int ZipCode { get; set; }
-        public int Rating { get; set; }
+        public double Rating { get; set; }
         public bool UtilitiesIncluded { get; set; }
         public string Description { get; set; }
     }

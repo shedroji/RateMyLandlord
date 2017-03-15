@@ -18,7 +18,7 @@ namespace RateMyLandlord.Models.Data
         public string State { get; set; }
         public int ZipCode { get; set; }
         public string Country { get; set; }
-        public int Rating { get; set; }
+        public double Rating { get; set; }
         public bool UtilitiesIncluded { get; set; }
         public string Description { get; set; }
         

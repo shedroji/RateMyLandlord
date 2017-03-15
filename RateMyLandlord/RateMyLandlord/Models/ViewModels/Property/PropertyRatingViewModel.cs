@@ -12,6 +12,6 @@ namespace RateMyLandlord.Models.ViewModels.Property
         public int PropertyId { get; set; }
         public int pRating { get; set; }
         public string Comment { get; set; }
-        public float MonthlyRent { get; set; }
+        public decimal MonthlyRent { get; set; }
     }
 }

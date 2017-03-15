@@ -1,0 +1,111 @@
+﻿2017-03-12 17:30:44,163 INFO [9] RateMyLandlord.Controllers.AccountController.Login - jshed logged in.
+2017-03-12 19:37:27,413 INFO [9] RateMyLandlord.Controllers.AccountController.Login - jshed logged in.
+2017-03-12 19:48:12,490 ERROR [9] RateMyLandlord.Controllers.RateController.getpropertyStarRating - Could not retreive rating: {}
+System.InvalidOperationException: The 'MonthlyRent' property on 'Property_Rating' could not be set to a 'System.Decimal' value. You must set this property to a non-null value of type 'System.Single'. 
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at RateMyLandlord.Controllers.RateController.getpropertyStarRating(Int32 Id) in C:\Users\Jake\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\RateController.cs:line 121
+2017-03-12 21:17:10,554 ERROR [5] RateMyLandlord.Controllers.RateController.getpropertyStarRating - Could not retreive rating: {}
+System.InvalidOperationException: The 'MonthlyRent' property on 'Property_Rating' could not be set to a 'System.Decimal' value. You must set this property to a non-null value of type 'System.Single'. 
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at RateMyLandlord.Controllers.RateController.getpropertyStarRating(Int32 Id) in C:\Users\Jake\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\RateController.cs:line 121
+2017-03-12 21:18:04,010 ERROR [5] RateMyLandlord.Controllers.RateController.getpropertyStarRating - Could not retreive rating: {}
+System.InvalidOperationException: The 'MonthlyRent' property on 'Property_Rating' could not be set to a 'System.Decimal' value. You must set this property to a non-null value of type 'System.Single'. 
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at RateMyLandlord.Controllers.RateController.getpropertyStarRating(Int32 Id) in C:\Users\Jake\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\RateController.cs:line 121
+2017-03-12 21:19:01,382 ERROR [5] RateMyLandlord.Controllers.RateController.getpropertyStarRating - Could not retreive rating: {}
+System.InvalidOperationException: The 'MonthlyRent' property on 'Property_Rating' could not be set to a 'System.Decimal' value. You must set this property to a non-null value of type 'System.Single'. 
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at RateMyLandlord.Controllers.RateController.getpropertyStarRating(Int32 Id) in C:\Users\Jake\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\RateController.cs:line 121
+2017-03-12 21:20:17,280 ERROR [5] RateMyLandlord.Controllers.RateController.getpropertyStarRating - Could not retreive rating: {}
+System.InvalidOperationException: The 'MonthlyRent' property on 'Property_Rating' could not be set to a 'System.Decimal' value. You must set this property to a non-null value of type 'System.Single'. 
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at RateMyLandlord.Controllers.RateController.getpropertyStarRating(Int32 Id) in C:\Users\Jake\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\RateController.cs:line 121
+2017-03-12 21:31:20,108 ERROR [9] RateMyLandlord.Controllers.RateController.getpropertyStarRating - Could not retreive rating: {}
+System.ArgumentException: DbComparisonExpression requires arguments with comparable types.
+   at System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder.DbExpressionBuilder.CreateComparison(DbExpressionKind kind, DbExpression left, DbExpression right)
+   at System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder.DbExpressionBuilder.Equal(DbExpression left, DbExpression right)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.ImplementEqualityConstantAndUnknown(DbConstantExpression constant, DbExpression unknown, EqualsPattern pattern)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.ImplementEquality(DbExpression left, DbExpression right, EqualsPattern pattern)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.RecursivelyRewriteEqualsExpression(DbExpression left, DbExpression right, EqualsPattern pattern)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.CreateEqualsExpression(DbExpression left, DbExpression right, EqualsPattern pattern, Type leftClrType, Type rightClrType)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.EqualsTranslator.TypedTranslate(ExpressionConverter parent, BinaryExpression linq)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   at System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   at System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at RateMyLandlord.Controllers.RateController.getpropertyStarRating(Int32 Id) in C:\Users\Jake\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\RateController.cs:line 121
+2017-03-12 21:52:12,309 ERROR [5] RateMyLandlord.Controllers.RateController.getpropertyStarRating - Could not retreive rating: {}
+System.InvalidOperationException: The 'MonthlyRent' property on 'Property_Rating' could not be set to a 'System.Decimal' value. You must set this property to a non-null value of type 'System.Single'. 
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at RateMyLandlord.Controllers.RateController.getpropertyStarRating(Int32 Id) in C:\Users\Jake\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\RateController.cs:line 120
+2017-03-12 22:02:12,709 ERROR [5] RateMyLandlord.Controllers.RateController.getpropertyStarRating - Could not retreive rating: {}
+System.InvalidOperationException: The 'MonthlyRent' property on 'Property_Rating' could not be set to a 'System.Decimal' value. You must set this property to a non-null value of type 'System.Single'. 
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at RateMyLandlord.Controllers.RateController.getpropertyStarRating(Int32 Id) in C:\Users\Jake\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\RateController.cs:line 120
+2017-03-12 22:04:29,394 ERROR [5] RateMyLandlord.Controllers.RateController.getpropertyStarRating - Could not retreive rating: {}
+System.InvalidOperationException: The 'MonthlyRent' property on 'Property_Rating' could not be set to a 'System.Decimal' value. You must set this property to a non-null value of type 'System.Int32'. 
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   at lambda_method(Closure , Shaper )
+   at System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at RateMyLandlord.Controllers.RateController.getpropertyStarRating(Int32 Id) in C:\Users\Jake\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\RateController.cs:line 120

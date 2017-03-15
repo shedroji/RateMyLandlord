@@ -32,6 +32,6 @@ namespace RateMyLandlord.Models.ViewModels.Property
 
         public string Description { get; set; }
 
-        public bool UtilitiesIncluded { get; internal set; }
+        public bool UtilitiesIncluded { get; set; }
     }
 }

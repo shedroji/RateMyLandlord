@@ -1,5 +1,7 @@
-﻿using RateMyLandlord.Models.Data;
+﻿using log4net;
+using RateMyLandlord.Models.Data;
 using RateMyLandlord.Models.ViewModels.Property;
+using RateMyLandlord.Models.ViewModels.Rate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,9 @@ namespace RateMyLandlord.Controllers
 {
     public class RateController : Controller
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(RateController));
+        private object propId;
+
         // GET: RAte
         public ActionResult Index()
         {
@@ -22,50 +27,112 @@ namespace RateMyLandlord.Controllers
             return View();
         }
 
+        [HttpGet]
+        public int getUserId(string username)
+        {
+            int userId;
+           
+            using(RMLDbContext context = new RMLDbContext())
+            {
+                User userDTO = context.Users.FirstOrDefault(u=>u.Username.Equals(username));
+                userId = userDTO.Id;
+            }
+            return userId;
+        }
+
+        [HttpGet]
+        public int getPropertyId(object property)
+        {
+            int propId;
+            using(RMLDbContext context = new RMLDbContext())
+            {
+               Property propertyDTO = context.Properties.FirstOrDefault(p => p.Id.Equals(property));
+                propId = propertyDTO.Id;
+            }
+            return propId;
+        }
+
         [HttpPost]
         public ActionResult StorePropertyRating(PropertyRatingViewModel rating)
         {
             //Vars
             string username = this.User.Identity.Name;
+            
             //validate the rating and user
-            if (rating.pRating != null)
+            //if (rating.pRating != null)
             //{
             //    ModelState.AddModelError("", "Rating must not be Null");
             //    return View();
             //}
-            if (string.IsNullOrWhiteSpace(username))
+            if (!string.IsNullOrWhiteSpace(username) && rating.pRating != null)
+            {
+                int userId = getUserId(username);
+                int propertyId = Convert.ToInt32(Session["propertyId"]);
+
+                using (RMLDbContext context = new RMLDbContext())
+                {
+
+                    //has the user rated this propery?
+                    //if (context.Property_Ratings.Any(r => r.PropertyId.Equals(rating.PropertyId)) && context.Property_Ratings.Any(u => u.UserId.Equals(rating.UserId)))
+                    //{
+                    //    ModelState.AddModelError("", "YOu have already Rated this property");
+                    //    return View();
+                    //}
+                    //populate the dto 
+                    Property_Rating newPropertyRatingDTO = new Property_Rating()
+                    {
+                        Id = rating.Id,
+                        UserId = userId,
+                        PropertyId = propertyId,
+                        Comment = rating.Comment,
+                        pRating = rating.pRating,
+                        MonthlyRent = rating.MonthlyRent
+                    };
+                    newPropertyRatingDTO = context.Property_Ratings.Add(newPropertyRatingDTO);
+                    // save to the DB
+                    context.SaveChanges();
+                }
+            }
+            else
             {
                 ModelState.AddModelError("", "Please log in before rating.");
-                return View("Account/Login");
+                return View("../Account/Login");
             }
-
             //connect to the DB
-            using (RMLDbContext context = new RMLDbContext())
-            {
-
-                //has the user rated this propery?
-                //if (context.Property_Ratings.Any(r => r.PropertyId.Equals(rating.PropertyId)) && context.Property_Ratings.Any(u => u.UserId.Equals(rating.UserId)))
-                //{
-                //    ModelState.AddModelError("", "YOu have already Rated this property");
-                //    return View();
-                //}
-                //populate the dto 
-                Property_Rating newPropertyRatingDTO = new Property_Rating()
-                {
-                    UserId = rating.UserId,
-                    PropertyId = rating.PropertyId,
-                    Comment = rating.Comment,
-                    pRating = rating.pRating,
-                    MonthlyRent = rating.MonthlyRent
-                };
-                newPropertyRatingDTO = context.Property_Ratings.Add(newPropertyRatingDTO);
-                // save to the DB
-                context.SaveChanges();
-            }
+            
 
 
             //Return the view
-            return View();
+            return View("RatingThankYou");
+        }
+
+        [HttpGet]
+        public double getpropertyStarRating(int Id)
+        {
+            var resultCollection = new List<Property_Rating>();
+            PropertyViewModel propertyVM;
+            try
+            {
+                using(RMLDbContext context = new RMLDbContext())
+                {
+                    int count = 0;
+                    double totalRating = 0;
+                    double ratingAvg = 0;
+                    List<Property_Rating> ratingList = new List<Property_Rating>();
+                    resultCollection = context.Property_Ratings.Where(r => r.PropertyId.Equals(Id)).ToList();
+                    foreach(var rating in resultCollection)
+                    {
+                        totalRating = totalRating + rating.pRating; 
+                        count++;
+                    }
+                    ratingAvg = totalRating / count;
+                    return ratingAvg;
+                }
+            } catch(Exception ex)
+            {
+                log.Error("Could not retreive rating: {}", ex);
+                return 0;
+            }
         }
     }
 }

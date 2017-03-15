@@ -195,6 +195,7 @@
     <Compile Include="Models\Data\Property_Rating.cs" />
     <Compile Include="Models\Data\RMLDbContext.cs" />
     <Compile Include="Models\Data\Roles.cs" />
+    <Compile Include="Models\Data\StarRating.cs" />
     <Compile Include="Models\Data\User.cs" />
     <Compile Include="Models\Data\UserProperties.cs" />
     <Compile Include="Models\Data\UserRoles.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Models\ViewModels\Property\PropertyViewModel.cs" />
     <Compile Include="Models\ViewModels\Property\PropertyRatingPartialView.cs" />
     <Compile Include="Models\ViewModels\Property\UpdateViewModel.cs" />
+    <Compile Include="Models\ViewModels\Rate\StarRatingViewModel.cs" />
     <Compile Include="Models\ViewModels\Search\SearchResultViewModel.cs" />
     <Compile Include="piczardUserControls\simpleImageUploadUserControl\SimpleImageUpload.ascx.cs">
       <DependentUpon>SimpleImageUpload.ascx</DependentUpon>
@@ -325,6 +327,8 @@
     <Content Include="Views\Property\Update.cshtml" />
     <Content Include="Views\Rate\StorePropertyRating.cshtml" />
     <Content Include="Views\Rate\StorePropertyRatingPartial.cshtml" />
+    <Content Include="Views\Rate\RatingThankYou.cshtml" />
+    <Content Include="Views\Rate\getpropertyStarRating.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
