@@ -88,6 +88,16 @@ namespace RateMyLandlord.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// adds an image to a property
+        /// </summary>
+        /// <param name="image"></param>
+        public void AddImages(HttpPostedFileBase image)
+        {
+            //not convinced we need a separate method for this, but possibly.
+            //on that youtube video, his AddImage is basically our Create
+        }
+
         [HttpGet]
         public ActionResult Update(int Id)
         {
@@ -162,6 +172,7 @@ namespace RateMyLandlord.Controllers
 
             return RedirectToAction("Index");
         }
+
 
         public ActionResult PropertyProfile(int Id)
         {

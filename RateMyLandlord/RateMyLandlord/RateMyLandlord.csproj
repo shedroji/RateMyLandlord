@@ -192,6 +192,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Data\Property.cs" />
+    <Compile Include="Models\Data\PropertyImages.cs" />
     <Compile Include="Models\Data\Property_Rating.cs" />
     <Compile Include="Models\Data\RMLDbContext.cs" />
     <Compile Include="Models\Data\Roles.cs" />
