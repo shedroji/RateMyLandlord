@@ -72,12 +72,13 @@ namespace RateMyLandlord.Controllers
                 using (RMLDbContext context = new RMLDbContext())
                 {
 
-                    //has the user rated this propery?
-                    //if (context.Property_Ratings.Any(r => r.PropertyId.Equals(rating.PropertyId)) && context.Property_Ratings.Any(u => u.UserId.Equals(rating.UserId)))
-                    //{
-                    //    ModelState.AddModelError("", "YOu have already Rated this property");
-                    //    return View();
-                    //}
+                    //has the user rated this propery ?
+                    if (context.Property_Ratings.Any(r => r.PropertyId.Equals(propertyId)) && context.Property_Ratings.Any(u => u.UserId.Equals(userId)))
+                    {
+                        ModelState.AddModelError("", "You have already Rated this property");
+                        ViewBag.Message = "You have already Rated this property";
+                        return View();
+                    }
                     //populate the dto 
                     Property_Rating newPropertyRatingDTO = new Property_Rating()
                     {

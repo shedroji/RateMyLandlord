@@ -73,8 +73,10 @@
 
         <dd>
             @*@Html.Partial("~/Views/Rate/getpropertyStarRating.cshtml", new RateMyLandlord.Models.ViewModels.Rate.StarRatingViewModel())*@
-            @Html.DisplayFor(model => model.Rating)
-            
+            @string.Format("{0:0.00}", Model.Rating) / 5
+            @*@Html.DisplayFor(model => model.Rating)*@
+        </dd>
+        <dd>
             @Html.Partial("~/Views/Rate/StorePropertyRatingPartial.cshtml", new RateMyLandlord.Models.ViewModels.Property.PropertyRatingViewModel())
             
         </dd>

@@ -1,4 +1,12 @@
-﻿@*@model RateMyLandlord.Models.ViewModels.Property.PropertyRatingViewModel
+﻿<br />
+@if (ViewBag.Message != null)
+{
+    <span>@ViewBag.Message</span>
+}
+<div>
+    @Html.ActionLink("Back to List", "../Property/Index")
+</div>
+@*@model RateMyLandlord.Models.ViewModels.Property.PropertyRatingViewModel
 
 
 @using (Html.BeginForm()) 
