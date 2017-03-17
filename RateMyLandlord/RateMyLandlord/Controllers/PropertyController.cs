@@ -107,6 +107,7 @@ namespace RateMyLandlord.Controllers
             using (RMLDbContext context = new RMLDbContext())
             {
                 //Populate the PropertyProfileViewModel
+                var rating = new RateController().getpropertyStarRating(Id);
                 Property propertyDTO = context.Properties.FirstOrDefault(x => x.Id == Id);
                 if (propertyDTO == null)
                 {
@@ -122,7 +123,7 @@ namespace RateMyLandlord.Controllers
                     State = propertyDTO.State,
                     Country = propertyDTO.Country,
                     ZipCode = propertyDTO.ZipCode,
-                    Rating = propertyDTO.Rating,
+                    Rating = rating,
                     UtilitiesIncluded = propertyDTO.UtilitiesIncluded,
                     Description = propertyDTO.Description
                 };
@@ -141,6 +142,7 @@ namespace RateMyLandlord.Controllers
             using (RMLDbContext context = new RMLDbContext())
             {
                 //Get property from DB
+                var rating = new RateController().getpropertyStarRating(editVM.Id);
                 propertyDTO = context.Properties.Find(editVM.Id);
                 if (propertyDTO == null) { return Content("Invalid User Id."); }
 
@@ -150,7 +152,7 @@ namespace RateMyLandlord.Controllers
                 propertyDTO.City = editVM.City;
                 propertyDTO.State = editVM.State;
                 propertyDTO.ZipCode = editVM.ZipCode;
-                propertyDTO.Rating = editVM.Rating;
+                propertyDTO.Rating = rating;
                 propertyDTO.UtilitiesIncluded = editVM.UtilitiesIncluded;
                 propertyDTO.Description = editVM.Description;
 
@@ -178,6 +180,7 @@ namespace RateMyLandlord.Controllers
             //Retrieve the property from the DB
             using(RMLDbContext context = new RMLDbContext())
             {
+                var rating = new RateController().getpropertyStarRating(Id);
                 //Populate the PropertyProfileViewModel
                 Property propertyDTO = context.Properties.FirstOrDefault(x => x.Id == Id);
                 if(propertyDTO == null)
@@ -193,12 +196,13 @@ namespace RateMyLandlord.Controllers
                     State = propertyDTO.State, 
                     Country = propertyDTO.Country, 
                     ZipCode = propertyDTO.ZipCode, 
-                    Rating = propertyDTO.Rating,
+                    Rating = rating,
                     UtilitiesIncluded = propertyDTO.UtilitiesIncluded, 
                     Description = propertyDTO.Description
                 };
             }
-
+            int propertyId = Id;
+            Session["propertyId"] = propertyId;
             //Return the View with the ViewModel
             return View(propertyVM);
         }
