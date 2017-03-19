@@ -331,7 +331,9 @@
     <Content Include="Views\Rate\RatingThankYou.cshtml" />
     <Content Include="Views\Rate\getpropertyStarRating.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\Images\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
