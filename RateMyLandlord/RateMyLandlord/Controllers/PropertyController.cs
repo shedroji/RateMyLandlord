@@ -4,6 +4,10 @@ using RateMyLandlord.Models.ViewModels.Property;
 using RateMyLandlord.Models.ViewModels.Search;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -37,8 +41,9 @@ namespace RateMyLandlord.Controllers
             return View();
         }
 
+        //IEnumerable<HttpPostedFileBase>
         [HttpPost]
-        public ActionResult Create(CreatePropertyViewModel newProperty)
+        public ActionResult Create(CreatePropertyViewModel newProperty, HttpPostedFileBase file)
         {
             //Validate that required Fields are filled in
             if (!ModelState.IsValid)
@@ -54,12 +59,30 @@ namespace RateMyLandlord.Controllers
                     //Make sure the new Property is Unique by comparing addresses. 
                         if(context.Properties.Any(row=>row.City.Equals(newProperty.City)) && 
                             context.Properties.Any(row=>row.Country.Equals(newProperty.Country)) && 
-                            context.Properties.Any(row=>row.ZipCode.Equals(newProperty.ZipCode))
+                            context.Properties.Any(row=>row.ZipCode.Equals(newProperty.ZipCode)) &&
+                            context.Properties.Any(row => row.StreetAddress.Equals(newProperty.StreetAddress))
                         )
                         {
                             ModelState.AddModelError("", "This Property already exists.");
                             return View();
                         }
+                    int filesNum = Request.Files.Count;
+                    var upload = Request.Files["file"];
+                    if (upload.ContentLength > 0)
+                    {
+
+                    }
+
+                        if (file != null)
+                    {
+                        //foreach (var image in file)
+                        //{
+                        //    var serverPath = Server.MapPath("~/files/" + image.FileName);
+                        //    image.SaveAs(serverPath);
+                        //    AddImages(newProperty, image);
+                        //    }
+                        AddImages(newProperty, file);
+                    }
                     //Create propertyDTO
                     Property newPropertyDTO = new Models.Data.Property()
                     {
@@ -71,7 +94,8 @@ namespace RateMyLandlord.Controllers
                         ZipCode = newProperty.ZipCode,
                         Rating = newProperty.Rating,  
                         Description = newProperty.Description,
-                        UtilitiesIncluded = newProperty.UtilitiesIncluded
+                        UtilitiesIncluded = newProperty.UtilitiesIncluded,
+                        ImageContent = newProperty.ImageContent
                     };
                     //Add to context
                     newPropertyDTO = context.Properties.Add(newPropertyDTO);
@@ -92,10 +116,34 @@ namespace RateMyLandlord.Controllers
         /// adds an image to a property
         /// </summary>
         /// <param name="image"></param>
-        public void AddImages(HttpPostedFileBase image)
+        public void AddImages(CreatePropertyViewModel property, HttpPostedFileBase image)
         {
             //not convinced we need a separate method for this, but possibly.
             //on that youtube video, his AddImage is basically our Create
+            property.ImageContent = new byte[image.ContentLength];
+            image.InputStream.Read(property.ImageContent, 0, image.ContentLength);
+
+            //Save image to file
+            var filename = image.FileName;
+            var filePathOriginal = Server.MapPath("/Content/Uploads/Originals");
+            var filePathThumbnail = Server.MapPath("/Content/Uploads/Thumbnails");
+            string savedFileName = Path.Combine(filePathOriginal, filename);
+            image.SaveAs(savedFileName);
+
+            //Read image back from file and create thumbnail from it
+            var imageFile = Path.Combine(Server.MapPath("~/Content/Uploads/Originals"), filename);
+            using (var srcImage = Image.FromFile(imageFile))
+            using (var newImage = new Bitmap(100, 100))
+            using (var graphics = Graphics.FromImage(newImage))
+            using (var stream = new MemoryStream())
+            {
+                graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                graphics.DrawImage(srcImage, new Rectangle(0, 0, 100, 100));
+                newImage.Save(stream, ImageFormat.Png);
+                var thumbNew = File(stream.ToArray(), "image/png");
+            }
         }
 
         [HttpGet]

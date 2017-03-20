@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -24,6 +25,7 @@ namespace RateMyLandlord.Models.ViewModels.Property
         public double Rating { get; set; }
         public string Description { get; set; }
         public bool UtilitiesIncluded { get; internal set; }
+        [DisplayName("Pictures")]
         public byte[] ImageContent { get; set; }
     }
 }

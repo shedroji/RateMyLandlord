@@ -1,4 +1,4 @@
-﻿@model RateMyLandlord.Models.ViewModels.Property.PropertyViewModel
+﻿@model RateMyLandlord.Models.ViewModels.Property.CreatePropertyViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -91,6 +91,14 @@
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.ImageContent, new { @class = "control-label col-md-2" })
+                <input name="file" id="file" type="file" accept="image/*" /> 
+                @Html.ValidationMessageFor(model => model.ImageContent)
+            </div>
+        </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using RateMyLandlord.Models.Data;
+using System.ComponentModel;
 
 namespace RateMyLandlord.Models.ViewModels.Property
 {
@@ -20,6 +21,7 @@ namespace RateMyLandlord.Models.ViewModels.Property
             this.Rating = row.Rating;
             this.UtilitiesIncluded = row.UtilitiesIncluded;
             this.Description = row.Description;
+            this.ImageContent = row.ImageContent;
         }
 
         public int Id { get; set; }
@@ -32,5 +34,8 @@ namespace RateMyLandlord.Models.ViewModels.Property
         public double Rating { get; set; }
         public bool UtilitiesIncluded { get; set; }
         public string Description { get; set; }
+        [DisplayName("Pictures")]
+        public byte[] ImageContent { get; set; }
+
     }
 }

@@ -21,6 +21,6 @@ namespace RateMyLandlord.Models.Data
         public double Rating { get; set; }
         public bool UtilitiesIncluded { get; set; }
         public string Description { get; set; }
-        
+        public byte[] ImageContent { get; set; }
     }
 }
