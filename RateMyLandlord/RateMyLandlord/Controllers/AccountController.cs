@@ -120,7 +120,7 @@ namespace RateMyLandlord.Controllers
             catch (Exception ex)
             {
                 // temporary logging
-                Console.WriteLine(ex.ToString());
+                log.Error("Error creating user: " + newUser.FirstName + ": {}", ex);
             }
             // if we made it this far something went wrong
             userTypesList.Add(new SelectListItem() { Text = "Tenant", Value = "Tenant" });

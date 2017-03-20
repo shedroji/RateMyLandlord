@@ -4,8 +4,17 @@
     ViewBag.Title = "PropertyProfile";
 }
 
-<h2>This Property</h2>
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/Content/fontawesome-stars.css">
+@*<script>
 
+       $(document).ready(function () {
+           $("#input-21b").on("rating.change", function (event, value, caption) {
+               alert("You rated: " + value + " = " + $(caption).text());
+           });
+       });
+</script>*@  
 <div>
     <h4>@Html.DisplayFor(model => model.StreetAddress) @Html.DisplayFor(model => model.City) @Html.DisplayFor(model => model.State), @Html.DisplayFor(model => model.ZipCode)</h4>
     <hr />
@@ -63,7 +72,13 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Rating)
+            @*@Html.Partial("~/Views/Rate/getpropertyStarRating.cshtml", new RateMyLandlord.Models.ViewModels.Rate.StarRatingViewModel())*@
+            @string.Format("{0:0.00}", Model.Rating) / 5
+            @*@Html.DisplayFor(model => model.Rating)*@
+        </dd>
+        <dd>
+            @Html.Partial("~/Views/Rate/StorePropertyRatingPartial.cshtml", new RateMyLandlord.Models.ViewModels.Property.PropertyRatingViewModel())
+            
         </dd>
 
         <dt>
@@ -88,3 +103,12 @@
     @Html.ActionLink("Edit", "Update", new { id = Model.Id }) |
     @Html.ActionLink("Back to Results", "Index", new { id = Model.Id })
 </p>
+<script src="~/scripts/jquery.barrating.min.js.map.js"></script>
+<script type="text/javascript">
+    $('propertyRating').barrating('show');
+   $(function() {
+      $('#propertyRating').barrating({
+        theme: 'fontawesome-stars'
+      });
+   });
+</script>

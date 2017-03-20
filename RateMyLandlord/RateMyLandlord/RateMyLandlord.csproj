@@ -193,8 +193,10 @@
     </Compile>
     <Compile Include="Models\Data\Property.cs" />
     <Compile Include="Models\Data\PropertyImages.cs" />
+    <Compile Include="Models\Data\Property_Rating.cs" />
     <Compile Include="Models\Data\RMLDbContext.cs" />
     <Compile Include="Models\Data\Roles.cs" />
+    <Compile Include="Models\Data\StarRating.cs" />
     <Compile Include="Models\Data\User.cs" />
     <Compile Include="Models\Data\UserProperties.cs" />
     <Compile Include="Models\Data\UserRoles.cs" />
@@ -209,8 +211,11 @@
     <Compile Include="Models\ViewModels\Property\EditViewModel.cs" />
     <Compile Include="Models\ViewModels\Property\CreatePropertyViewModel.cs" />
     <Compile Include="Models\ViewModels\Property\PropertyProfileViewModel.cs" />
+    <Compile Include="Models\ViewModels\Property\PropertyRatingViewModel.cs" />
     <Compile Include="Models\ViewModels\Property\PropertyViewModel.cs" />
+    <Compile Include="Models\ViewModels\Property\PropertyRatingPartialView.cs" />
     <Compile Include="Models\ViewModels\Property\UpdateViewModel.cs" />
+    <Compile Include="Models\ViewModels\Rate\StarRatingViewModel.cs" />
     <Compile Include="Models\ViewModels\Search\SearchResultViewModel.cs" />
     <Compile Include="piczardUserControls\simpleImageUploadUserControl\SimpleImageUpload.ascx.cs">
       <DependentUpon>SimpleImageUpload.ascx</DependentUpon>
@@ -244,10 +249,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\delete.gif" />
+    <Content Include="Content\fontawesome-stars-o.css" />
+    <Content Include="Content\fontawesome-stars.css" />
     <Content Include="Content\rateit.css" />
     <Content Include="Content\star.gif" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="piczardUserControls\simpleImageUploadUserControl\blank.gif" />
@@ -262,14 +269,16 @@
     <Content Include="App_Data\__CCPZTF_78d3a7c598904cd48d0447186ad55482__wt.tmp" />
     <Content Include="piczardUserControls\simpleImageUploadUserControl\preview.ashx" />
     <Content Include="piczardUserControls\simpleImageUploadUserControl\uploadMonitor.ashx" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-bar-rating.min.js" />
+    <Content Include="Scripts\jquery.barrating.min.js.map.js" />
     <Content Include="Scripts\jquery.rateit.js" />
     <Content Include="Scripts\jquery.rateit.min.js" />
     <Content Include="Scripts\jquery.rateit.min.js.map" />
@@ -317,8 +326,14 @@
     <Content Include="Views\Property\Index.cshtml" />
     <Content Include="Views\Property\PropertyProfile.cshtml" />
     <Content Include="Views\Property\Update.cshtml" />
+    <Content Include="Views\Rate\StorePropertyRating.cshtml" />
+    <Content Include="Views\Rate\StorePropertyRatingPartial.cshtml" />
+    <Content Include="Views\Rate\RatingThankYou.cshtml" />
+    <Content Include="Views\Rate\getpropertyStarRating.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\Images\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>

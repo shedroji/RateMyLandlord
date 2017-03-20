@@ -24,6 +24,10 @@ namespace RateMyLandlord.Models.ViewModels.Property
             this.ImageContent = row.ImageContent;
         }
 
+        public PropertyViewModel()
+        {
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string StreetAddress { get; set; }

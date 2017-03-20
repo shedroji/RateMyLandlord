@@ -1,2 +1,1 @@
-﻿2017-03-19 01:12:01,865 INFO [11] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : AnotherTest
-2017-03-19 01:24:58,793 INFO [10] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : Probasco St
+﻿2017-03-07 20:10:10,095 INFO [11] RateMyLandlord.Controllers.AccountController.Login - jshed logged in.
