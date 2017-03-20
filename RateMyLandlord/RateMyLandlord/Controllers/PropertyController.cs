@@ -66,23 +66,23 @@ namespace RateMyLandlord.Controllers
                             ModelState.AddModelError("", "This Property already exists.");
                             return View();
                         }
-                    int filesNum = Request.Files.Count;
-                    var upload = Request.Files["file"];
-                    if (upload.ContentLength > 0)
-                    {
+                    //int filesNum = Request.Files.Count;
+                    //var upload = Request.Files["file"];
+                    //if (upload.ContentLength > 0)
+                    //{
 
-                    }
+                    //}
 
-                        if (file != null)
-                    {
-                        //foreach (var image in file)
-                        //{
-                        //    var serverPath = Server.MapPath("~/files/" + image.FileName);
-                        //    image.SaveAs(serverPath);
-                        //    AddImages(newProperty, image);
-                        //    }
-                        AddImages(newProperty, file);
-                    }
+                    //    if (file != null)
+                    //{
+                    //    //foreach (var image in file)
+                    //    //{
+                    //    //    var serverPath = Server.MapPath("~/files/" + image.FileName);
+                    //    //    image.SaveAs(serverPath);
+                    //    //    AddImages(newProperty, image);
+                    //    //    }
+                    //    AddImages(newProperty, file);
+                    //}
                     //Create propertyDTO
                     Property newPropertyDTO = new Models.Data.Property()
                     {
@@ -244,7 +244,7 @@ namespace RateMyLandlord.Controllers
                     State = propertyDTO.State, 
                     Country = propertyDTO.Country, 
                     ZipCode = propertyDTO.ZipCode, 
-                    Rating = rating,
+                    Rating = propertyDTO.Rating, //rating,
                     UtilitiesIncluded = propertyDTO.UtilitiesIncluded, 
                     Description = propertyDTO.Description
                 };

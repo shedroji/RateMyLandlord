@@ -251,6 +251,7 @@
     <Content Include="Content\delete.gif" />
     <Content Include="Content\fontawesome-stars-o.css" />
     <Content Include="Content\fontawesome-stars.css" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="Content\rateit.css" />
     <Content Include="Content\star.gif" />
     <Content Include="favicon.ico" />
@@ -331,9 +332,7 @@
     <Content Include="Views\Rate\RatingThankYou.cshtml" />
     <Content Include="Views\Rate\getpropertyStarRating.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
