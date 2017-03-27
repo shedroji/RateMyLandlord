@@ -10,7 +10,7 @@ namespace RateMyLandlord.Models.Data
     public class PropertyImages
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ImageId { get; set; }
         public int PropertyId { get; set; }
         public int UserId { get; set; }
