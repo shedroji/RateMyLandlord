@@ -19,3 +19,9 @@ System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\User
 2017-03-20 01:57:51,768 INFO [8] RateMyLandlord.Controllers.AccountController.Login - HiClass logged in.
 2017-03-20 01:58:33,816 INFO [16] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : Ohio Ave
 2017-03-20 01:59:05,133 INFO [16] RateMyLandlord.Controllers.CorrespondenceController.Index - Email Sent!
+2017-03-22 18:31:53,978 INFO [49] RateMyLandlord.Controllers.AccountController.Login - jshed logged in.
+2017-03-22 18:37:45,022 INFO [10] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : test rating
+2017-03-22 18:41:50,040 INFO [9] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : test redirect
+2017-03-22 18:49:38,506 INFO [11] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : test redirect2
+2017-03-22 18:54:44,751 INFO [9] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : test redirect 3
+2017-03-22 19:18:05,503 INFO [19] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : fasdfg
