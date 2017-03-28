@@ -24,7 +24,7 @@ namespace RateMyLandlord.Models.ViewModels.Property
         public int ZipCode { get; set; }
         public double Rating { get; set; }
         public string Description { get; set; }
-        public bool UtilitiesIncluded { get; internal set; }
+        public bool UtilitiesIncluded { get; set; }
         [DisplayName("Pictures")]
         public byte[] ImageContent { get; set; }
     }

@@ -73,18 +73,23 @@ namespace RateMyLandlord.Controllers
 
                     //}
 
-                    //    if (file != null)
-                    //{
-                    //    //foreach (var image in file)
-                    //    //{
-                    //    //    var serverPath = Server.MapPath("~/files/" + image.FileName);
-                    //    //    image.SaveAs(serverPath);
-                    //    //    AddImages(newProperty, image);
-                    //    //    }
-                    //    AddImages(newProperty, file);
-                    //}
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        //foreach (var image in file)
+                        //{
+                        //    var serverPath = Server.MapPath("~/files/" + image.FileName);
+                        //    image.SaveAs(serverPath);
+                        //    AddImages(newProperty, image);
+                        //    }
+                        string filename = file.FileName;
+                        byte[] imageBytes = new byte[file.ContentLength];
+                        //newProperty.ImageContent = AddImages(newProperty, imageBytes, filename);
+                        newProperty.ImageContent = imageBytes;
+                        file.InputStream.Read(newProperty.ImageContent, 0, file.ContentLength);
+
+                    }
                     //Create propertyDTO
-                    Property newPropertyDTO = new Models.Data.Property()
+                    Property newPropertyDTO = new Property()
                     {
                         Name = newProperty.Name,
                         StreetAddress = newProperty.StreetAddress,
@@ -97,10 +102,22 @@ namespace RateMyLandlord.Controllers
                         UtilitiesIncluded = newProperty.UtilitiesIncluded,
                         ImageContent = newProperty.ImageContent
                     };
+                    PropertyImages newPropertyImageDTO = new PropertyImages()
+                    {
+                        //ImageId = context.PropertyImages.Max(p => p.ImageId + 1),
+                        PropertyId = newProperty.Id,
+                        Size = file.ContentLength,
+                        ImageContent = newProperty.ImageContent,
+                        Active = true,
+                        DateCreated = DateTime.Now,
+                        DateModified = DateTime.Now
+                    };
                     //Add to context
                     newPropertyDTO = context.Properties.Add(newPropertyDTO);
+                    newPropertyImageDTO = context.PropertyImages.Add(newPropertyImageDTO);
                     // Save Changes
                     context.SaveChanges();
+                    ViewBag.Message = "File uploaded successfully";
                 }
                 log.Info("Property created successfully : " + newProperty.Name);
             } catch (Exception ex)
@@ -116,19 +133,19 @@ namespace RateMyLandlord.Controllers
         /// adds an image to a property
         /// </summary>
         /// <param name="image"></param>
-        public void AddImages(CreatePropertyViewModel property, HttpPostedFileBase image)
+        public byte[] AddImages(CreatePropertyViewModel property, byte[] image, string imageFileName)
         {
             //not convinced we need a separate method for this, but possibly.
             //on that youtube video, his AddImage is basically our Create
-            property.ImageContent = new byte[image.ContentLength];
-            image.InputStream.Read(property.ImageContent, 0, image.ContentLength);
+            //property.ImageContent = new byte[image.ContentLength];
+            //image.InputStream.Read(property.ImageContent, 0, image.ContentLength);
 
             //Save image to file
-            var filename = image.FileName;
-            var filePathOriginal = Server.MapPath("/Content/Uploads/Originals");
-            var filePathThumbnail = Server.MapPath("/Content/Uploads/Thumbnails");
+            string filename = imageFileName;
+            string filePathOriginal = Server.MapPath("/Content/Uploads/Originals");
+            string filePathThumbnail = Server.MapPath("/Content/Uploads/Thumbnails");
             string savedFileName = Path.Combine(filePathOriginal, filename);
-            image.SaveAs(savedFileName);
+            //image.SaveAs(savedFileName);
 
             //Read image back from file and create thumbnail from it
             var imageFile = Path.Combine(Server.MapPath("~/Content/Uploads/Originals"), filename);
@@ -144,6 +161,8 @@ namespace RateMyLandlord.Controllers
                 newImage.Save(stream, ImageFormat.Png);
                 var thumbNew = File(stream.ToArray(), "image/png");
             }
+            return property.ImageContent;
+            
         }
 
         [HttpGet]
@@ -231,6 +250,7 @@ namespace RateMyLandlord.Controllers
                 var rating = new RateController().getpropertyStarRating(Id);
                 //Populate the PropertyProfileViewModel
                 Property propertyDTO = context.Properties.FirstOrDefault(x => x.Id == Id);
+                PropertyImages propertyImageDTO = context.PropertyImages.FirstOrDefault(y => y.ImageId == Id);
                 if(propertyDTO == null)
                 {
                     ModelState.AddModelError("", "Invalid Property Id");

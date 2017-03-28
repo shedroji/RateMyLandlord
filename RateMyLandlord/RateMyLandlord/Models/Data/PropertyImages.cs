@@ -6,13 +6,13 @@ using System.Linq;
 using System.Web;
 namespace RateMyLandlord.Models.Data
 {
-    [Table("tblUser_Validation")]
+    [Table("tblProperty_Images")]
     public class PropertyImages
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ImageId { get; set; }
-        public string PropertyId { get; set; }
+        public int PropertyId { get; set; }
         public int UserId { get; set; }
         public int Size { get; set; }
         public byte[] ImageContent { get; set; }
