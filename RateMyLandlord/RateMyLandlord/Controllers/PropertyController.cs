@@ -73,6 +73,7 @@ namespace RateMyLandlord.Controllers
 
                     //}
 
+                    //check if an image was uploaded. If so, save it to db
                     if (file != null && file.ContentLength > 0)
                     {
                         //foreach (var image in file)
@@ -86,6 +87,20 @@ namespace RateMyLandlord.Controllers
                         //newProperty.ImageContent = AddImages(newProperty, imageBytes, filename);
                         newProperty.ImageContent = imageBytes;
                         file.InputStream.Read(newProperty.ImageContent, 0, file.ContentLength);
+
+                        //create DTO
+                        PropertyImages newPropertyImageDTO = new PropertyImages()
+                        {
+                            //ImageId = context.PropertyImages.Max(p => p.ImageId + 1),
+                            PropertyId = newProperty.Id,
+                            Size = file.ContentLength,
+                            ImageContent = newProperty.ImageContent,
+                            Active = true,
+                            DateCreated = DateTime.Now,
+                            DateModified = DateTime.Now
+                        };
+                        //Add to context
+                        newPropertyImageDTO = context.PropertyImages.Add(newPropertyImageDTO);
 
                     }
                     //Create propertyDTO
@@ -102,19 +117,8 @@ namespace RateMyLandlord.Controllers
                         UtilitiesIncluded = newProperty.UtilitiesIncluded,
                         ImageContent = newProperty.ImageContent
                     };
-                    PropertyImages newPropertyImageDTO = new PropertyImages()
-                    {
-                        //ImageId = context.PropertyImages.Max(p => p.ImageId + 1),
-                        PropertyId = newProperty.Id,
-                        Size = file.ContentLength,
-                        ImageContent = newProperty.ImageContent,
-                        Active = true,
-                        DateCreated = DateTime.Now,
-                        DateModified = DateTime.Now
-                    };
                     //Add to context
                     newPropertyDTO = context.Properties.Add(newPropertyDTO);
-                    newPropertyImageDTO = context.PropertyImages.Add(newPropertyImageDTO);
                     // Save Changes
                     context.SaveChanges();
                     ViewBag.Message = "File uploaded successfully";
