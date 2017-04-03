@@ -64,7 +64,7 @@ namespace RateMyLandlord.Controllers
             //    ModelState.AddModelError("", "Rating must not be Null");
             //    return View();
             //}
-            if (!string.IsNullOrWhiteSpace(username) && rating.pRating != null)
+            if (!string.IsNullOrWhiteSpace(username))
             {
                 int userId = getUserId(username);
                 int propertyId = Convert.ToInt32(Session["propertyId"]);
@@ -92,6 +92,7 @@ namespace RateMyLandlord.Controllers
                     newPropertyRatingDTO = context.Property_Ratings.Add(newPropertyRatingDTO);
                     // save to the DB
                     context.SaveChanges();
+                    log.Info("Rating Saved for property");
                 }
             }
             else
