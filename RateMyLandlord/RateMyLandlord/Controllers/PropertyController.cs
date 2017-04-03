@@ -21,6 +21,7 @@ namespace RateMyLandlord.Controllers
     public class PropertyController : Controller
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PropertyController));
+        List<SelectListItem> listOfStates = new List<SelectListItem>();
 
         // GET: Property
         public ActionResult Index()
@@ -37,8 +38,61 @@ namespace RateMyLandlord.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            
-            return View();
+            CreatePropertyViewModel emptyProperty = new CreatePropertyViewModel();
+            listOfStates.Add(new SelectListItem() { Text = "Alabama", Value = "AL" });
+            listOfStates.Add(new SelectListItem() { Text = "Alaska", Value = "AK" });
+            listOfStates.Add(new SelectListItem() { Text = "Arizona", Value = "AZ" });
+            listOfStates.Add(new SelectListItem() { Text = "Arkansas", Value = "AR" });
+            listOfStates.Add(new SelectListItem() { Text = "California", Value = "CA" });
+            listOfStates.Add(new SelectListItem() { Text = "Colorado", Value = "CO" });
+            listOfStates.Add(new SelectListItem() { Text = "Connecticut", Value = "CT" });
+            listOfStates.Add(new SelectListItem() { Text = "District of Culumbia", Value = "DC" });
+            listOfStates.Add(new SelectListItem() { Text = "Delaware", Value = "DE" });
+            listOfStates.Add(new SelectListItem() { Text = "Florida", Value = "FL" });
+            listOfStates.Add(new SelectListItem() { Text = "Georgia", Value = "GA" });
+            listOfStates.Add(new SelectListItem() { Text = "Hawaii", Value = "HI" });
+            listOfStates.Add(new SelectListItem() { Text = "Idaho", Value = "ID" });
+            listOfStates.Add(new SelectListItem() { Text = "Illinois", Value = "IL" });
+            listOfStates.Add(new SelectListItem() { Text = "Indiana", Value = "IN" });
+            listOfStates.Add(new SelectListItem() { Text = "Iowa", Value = "IA" });
+            listOfStates.Add(new SelectListItem() { Text = "Kansas", Value = "KS" });
+            listOfStates.Add(new SelectListItem() { Text = "Kentucky", Value = "KY" });
+            listOfStates.Add(new SelectListItem() { Text = "Louisiana", Value = "LA" });
+            listOfStates.Add(new SelectListItem() { Text = "Maine", Value = "ME" });
+            listOfStates.Add(new SelectListItem() { Text = "Maryland", Value = "MD" });
+            listOfStates.Add(new SelectListItem() { Text = "Massachusetts", Value = "MA" });
+            listOfStates.Add(new SelectListItem() { Text = "Michigan", Value = "MI" });
+            listOfStates.Add(new SelectListItem() { Text = "Minnesota", Value = "MN" });
+            listOfStates.Add(new SelectListItem() { Text = "Mississippi", Value = "MS" });
+            listOfStates.Add(new SelectListItem() { Text = "Missouri", Value = "MO" });
+            listOfStates.Add(new SelectListItem() { Text = "Montana", Value = "MT" });
+            listOfStates.Add(new SelectListItem() { Text = "Nebraska", Value = "NE" });
+            listOfStates.Add(new SelectListItem() { Text = "Nevada", Value = "NV" });
+            listOfStates.Add(new SelectListItem() { Text = "New Hampshire", Value = "NH" });
+            listOfStates.Add(new SelectListItem() { Text = "New Jersey", Value = "NJ" });
+            listOfStates.Add(new SelectListItem() { Text = "New Mexico", Value = "NM" });
+            listOfStates.Add(new SelectListItem() { Text = "New York", Value = "NY" });
+            listOfStates.Add(new SelectListItem() { Text = "North Carolina", Value = "NC" });
+            listOfStates.Add(new SelectListItem() { Text = "North Dakota", Value = "ND" });
+            listOfStates.Add(new SelectListItem() { Text = "Ohio", Value = "OH" });
+            listOfStates.Add(new SelectListItem() { Text = "Oklahoma", Value = "OK" });
+            listOfStates.Add(new SelectListItem() { Text = "Oregon", Value = "OR" });
+            listOfStates.Add(new SelectListItem() { Text = "Pennsylvania", Value = "PA" });
+            listOfStates.Add(new SelectListItem() { Text = "Rhode Island", Value = "RI" });
+            listOfStates.Add(new SelectListItem() { Text = "South Carolina", Value = "SC" });
+            listOfStates.Add(new SelectListItem() { Text = "South Dakota", Value = "SD" });
+            listOfStates.Add(new SelectListItem() { Text = "Tennessee", Value = "TN" });
+            listOfStates.Add(new SelectListItem() { Text = "Texas", Value = "TX" });
+            listOfStates.Add(new SelectListItem() { Text = "Utah", Value = "UT" });
+            listOfStates.Add(new SelectListItem() { Text = "Vermont", Value = "VT" });
+            listOfStates.Add(new SelectListItem() { Text = "Virginia", Value = "VA" });
+            listOfStates.Add(new SelectListItem() { Text = "Washington", Value = "WA" });
+            listOfStates.Add(new SelectListItem() { Text = "West Virginia", Value = "WV" });
+            listOfStates.Add(new SelectListItem() { Text = "Wisconsin", Value = "WI" });
+            listOfStates.Add(new SelectListItem() { Text = "Wyoming", Value = "WY" });
+
+            emptyProperty.stateList = listOfStates;
+            return View(emptyProperty);
         }
 
         //IEnumerable<HttpPostedFileBase>

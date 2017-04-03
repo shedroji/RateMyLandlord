@@ -26,3 +26,4 @@ System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\User
 2017-03-22 18:54:44,751 INFO [9] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : test redirect 3
 2017-03-22 19:18:05,503 INFO [19] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : fasdfg
 2017-03-28 23:43:00,408 INFO [11] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : testimgdto
+2017-04-03 19:12:11,012 INFO [6] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : State Test
