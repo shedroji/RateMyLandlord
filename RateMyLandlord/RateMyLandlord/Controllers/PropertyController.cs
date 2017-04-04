@@ -112,7 +112,6 @@ namespace RateMyLandlord.Controllers
                 {
                     //Make sure the new Property is Unique by comparing addresses. 
                         if(context.Properties.Any(row=>row.City.Equals(newProperty.City)) && 
-                            context.Properties.Any(row=>row.Country.Equals(newProperty.Country)) && 
                             context.Properties.Any(row=>row.ZipCode.Equals(newProperty.ZipCode)) &&
                             context.Properties.Any(row => row.StreetAddress.Equals(newProperty.StreetAddress))
                         )
@@ -164,7 +163,6 @@ namespace RateMyLandlord.Controllers
                         StreetAddress = newProperty.StreetAddress,
                         City = newProperty.City,
                         State = newProperty.State,
-                        Country = newProperty.Country,
                         ZipCode = newProperty.ZipCode,
                         Rating = newProperty.Rating,  
                         Description = newProperty.Description,
@@ -246,7 +244,6 @@ namespace RateMyLandlord.Controllers
                     StreetAddress = propertyDTO.StreetAddress,
                     City = propertyDTO.City,
                     State = propertyDTO.State,
-                    Country = propertyDTO.Country,
                     ZipCode = propertyDTO.ZipCode,
                     Rating = rating,
                     UtilitiesIncluded = propertyDTO.UtilitiesIncluded,
@@ -320,7 +317,6 @@ namespace RateMyLandlord.Controllers
                     StreetAddress = propertyDTO.StreetAddress, 
                     City = propertyDTO.City,
                     State = propertyDTO.State, 
-                    Country = propertyDTO.Country, 
                     ZipCode = propertyDTO.ZipCode, 
                     Rating = propertyDTO.Rating, //rating,
                     UtilitiesIncluded = propertyDTO.UtilitiesIncluded, 

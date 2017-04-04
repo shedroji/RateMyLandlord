@@ -20,7 +20,7 @@ namespace RateMyLandlord.Models.ViewModels.Property
         public string City { get; set; }
         [Required]
         public string State { get; set; }
-        public string Country { get; set; }
+
         [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Invalid Zip Code Format")]
         public int ZipCode { get; set; }
         public double Rating { get; set; }
