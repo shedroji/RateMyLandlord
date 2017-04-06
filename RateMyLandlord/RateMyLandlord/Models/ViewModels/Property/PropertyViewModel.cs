@@ -16,7 +16,6 @@ namespace RateMyLandlord.Models.ViewModels.Property
             this.Name = row.Name;
             this.StreetAddress = row.StreetAddress;
             this.City = row.City;
-            this.Country = row.Country;
             this.ZipCode = row.ZipCode;
             this.Rating = row.Rating;
             this.UtilitiesIncluded = row.UtilitiesIncluded;
@@ -33,7 +32,6 @@ namespace RateMyLandlord.Models.ViewModels.Property
         public string StreetAddress { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public string Country { get; set; }
         public int ZipCode { get; set; }
         public double Rating { get; set; }
         public bool UtilitiesIncluded { get; set; }
