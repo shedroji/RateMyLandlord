@@ -27,3 +27,13 @@ System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\User
 2017-03-22 19:18:05,503 INFO [19] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : fasdfg
 2017-03-28 23:43:00,408 INFO [11] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : testimgdto
 2017-04-03 19:12:11,012 INFO [6] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : State Test
+2017-04-05 20:42:52,223 INFO [9] RateMyLandlord.Controllers.AccountController.Login - test1 logged in.
+2017-04-05 20:43:35,673 ERROR [9] RateMyLandlord.Controllers.RateController.UpdatePropertyRating - Failed to update Rating for: {}0Exception: {}
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at RateMyLandlord.Controllers.RateController.UpdatePropertyRating(Int32 pRating, Int32 propertyId) in C:\Users\shedr\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\RateController.cs:line 119
+2017-04-05 20:43:35,830 INFO [9] RateMyLandlord.Controllers.RateController.StorePropertyRating - Rating Saved for property
+2017-04-05 20:46:32,386 INFO [10] RateMyLandlord.Controllers.RateController.UpdatePropertyRating - Rating saved for: {}0
+2017-04-05 20:46:32,533 INFO [10] RateMyLandlord.Controllers.RateController.StorePropertyRating - Rating Saved for property
+2017-04-05 20:52:30,636 INFO [9] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : rate test
+2017-04-05 20:53:03,053 INFO [12] RateMyLandlord.Controllers.RateController.UpdatePropertyRating - Rating saved for: {}36
+2017-04-05 20:53:03,195 INFO [12] RateMyLandlord.Controllers.RateController.StorePropertyRating - Rating Saved for property

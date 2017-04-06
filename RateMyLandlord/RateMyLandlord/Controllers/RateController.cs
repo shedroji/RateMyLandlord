@@ -64,7 +64,7 @@ namespace RateMyLandlord.Controllers
             //    ModelState.AddModelError("", "Rating must not be Null");
             //    return View();
             //}
-            if (!string.IsNullOrWhiteSpace(username) && rating.pRating != null)
+            if (!string.IsNullOrWhiteSpace(username))
             {
                 int userId = getUserId(username);
                 int propertyId = Convert.ToInt32(Session["propertyId"]);
@@ -90,8 +90,10 @@ namespace RateMyLandlord.Controllers
                         MonthlyRent = rating.MonthlyRent
                     };
                     newPropertyRatingDTO = context.Property_Ratings.Add(newPropertyRatingDTO);
+                    UpdatePropertyRating(rating.pRating, propertyId);
                     // save to the DB
                     context.SaveChanges();
+                    log.Info("Rating Saved for property");
                 }
             }
             else
@@ -105,6 +107,25 @@ namespace RateMyLandlord.Controllers
 
             //Return the view
             return View("RatingThankYou");
+        }
+
+        private void UpdatePropertyRating(int pRating, int propertyId)
+        {
+            try
+            {
+                using(RMLDbContext context = new RMLDbContext())
+                {
+                    Property propertyDTO = context.Properties.Find(propertyId);
+                    if(propertyDTO != null)
+                    propertyDTO.Rating = pRating;
+
+                    context.SaveChanges();
+                    log.Info("Rating saved for: {}" + propertyId);
+                }
+            }catch(Exception ex)
+            {
+                log.Error("Failed to update Rating for: {}" + propertyId + "Exception: {}", ex);
+            }
         }
 
         [HttpGet]

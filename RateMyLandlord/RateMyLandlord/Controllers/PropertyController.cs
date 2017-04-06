@@ -35,6 +35,17 @@ namespace RateMyLandlord.Controllers
             return View(propertyVM);
         }
 
+        //[HttpGet]
+        //public double getRating(int Id)
+        //{
+        //    double rating;
+        //    using(RMLDbContext context = new RMLDbContext())
+        //    {
+
+        //    }
+        //    return rating;
+        //}
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -318,7 +329,7 @@ namespace RateMyLandlord.Controllers
                     City = propertyDTO.City,
                     State = propertyDTO.State, 
                     ZipCode = propertyDTO.ZipCode, 
-                    Rating = propertyDTO.Rating, //rating,
+                    Rating = rating, //propertyDTO.Rating,
                     UtilitiesIncluded = propertyDTO.UtilitiesIncluded, 
                     Description = propertyDTO.Description
                 };
