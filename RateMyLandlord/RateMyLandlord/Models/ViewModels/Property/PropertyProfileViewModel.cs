@@ -16,5 +16,7 @@ namespace RateMyLandlord.Models.ViewModels.Property
         public double Rating { get; set; }
         public string Description { get; set; }
         public bool UtilitiesIncluded { get; set; }
+        public byte[] ImageContent { get; set; }
+        public string ImagePath { get; set; }
     }
 }

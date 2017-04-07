@@ -151,12 +151,19 @@ namespace RateMyLandlord.Controllers
                         //newProperty.ImageContent = AddImages(newProperty, imageBytes, filename);
                         newProperty.ImageContent = imageBytes;
                         file.InputStream.Read(newProperty.ImageContent, 0, file.ContentLength);
+                        //file.SaveAs(HttpContext.Server.MapPath("~/Images/") + file.FileName);
 
+                        int propImgId = context.Properties.Max(x => (int) x.Id);
+                        //string propImgString = context.Properties.OrderByDescending(x => x.Id).FirstOrDefault().ToString();
+                        //bool imgConvertResult = Int32.TryParse(propImgString, out propImgId);
+                        
                         //create DTO
                         PropertyImages newPropertyImageDTO = new PropertyImages()
                         {
                             //ImageId = context.PropertyImages.Max(p => p.ImageId + 1),
-                            PropertyId = newProperty.Id,
+                            PropertyId = propImgId,
+                            ImagePath = filename,
+                           //UserId = newProperty.UserId,
                             Size = file.ContentLength,
                             ImageContent = newProperty.ImageContent,
                             Active = true,
@@ -178,11 +185,17 @@ namespace RateMyLandlord.Controllers
                         Rating = newProperty.Rating,  
                         Description = newProperty.Description,
                         UtilitiesIncluded = newProperty.UtilitiesIncluded,
-                        ImageContent = newProperty.ImageContent
+                        ImageContent = newProperty.ImageContent,
+                        ImagePath = file.FileName
+
                     };
+
+                    
+
                     //Add to context
                     newPropertyDTO = context.Properties.Add(newPropertyDTO);
                     // Save Changes
+                    //file.SaveAs(file.FileName);
                     context.SaveChanges();
                     ViewBag.Message = "File uploaded successfully";
                 }
@@ -316,7 +329,7 @@ namespace RateMyLandlord.Controllers
                 var rating = new RateController().getpropertyStarRating(Id);
                 //Populate the PropertyProfileViewModel
                 Property propertyDTO = context.Properties.FirstOrDefault(x => x.Id == Id);
-                PropertyImages propertyImageDTO = context.PropertyImages.FirstOrDefault(y => y.ImageId == Id);
+                PropertyImages propertyImageDTO = context.PropertyImages.FirstOrDefault(y => y.UserId == Id);
                 if(propertyDTO == null)
                 {
                     ModelState.AddModelError("", "Invalid Property Id");
@@ -331,7 +344,9 @@ namespace RateMyLandlord.Controllers
                     ZipCode = propertyDTO.ZipCode, 
                     Rating = rating, //propertyDTO.Rating,
                     UtilitiesIncluded = propertyDTO.UtilitiesIncluded, 
-                    Description = propertyDTO.Description
+                    Description = propertyDTO.Description,
+                    ImageContent = propertyDTO.ImageContent,
+                    ImagePath = propertyDTO.ImagePath
                 };
             }
             int propertyId = Id;
