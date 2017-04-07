@@ -1,68 +1,12 @@
-﻿2017-03-20 01:15:45,556 INFO [22] RateMyLandlord.Controllers.AccountController.Login - classdemo logged in.
-2017-03-20 01:31:49,134 INFO [12] RateMyLandlord.Controllers.AccountController.Login - springdemo17 logged in.
-2017-03-20 01:32:34,791 ERROR [13] RateMyLandlord.Controllers.PropertyController.Create - Failed to create property: Campus Park : {}
-System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Users\Articuno\Source\Repos\RateMyLandlord2\RateMyLandlord\RateMyLandlord\Content\Uploads\Originals\2017-03-06_23h48_48.png'.
-   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
-   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
-   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
-   at System.IO.FileStream..ctor(String path, FileMode mode)
-   at System.Web.HttpPostedFile.SaveAs(String filename)
-   at System.Web.HttpPostedFileWrapper.SaveAs(String filename)
-   at RateMyLandlord.Controllers.PropertyController.AddImages(CreatePropertyViewModel property, HttpPostedFileBase image) in C:\Users\Articuno\Source\Repos\RateMyLandlord2\RateMyLandlord\RateMyLandlord\Controllers\PropertyController.cs:line 132
-   at RateMyLandlord.Controllers.PropertyController.Create(CreatePropertyViewModel newProperty, HttpPostedFileBase file) in C:\Users\Articuno\Source\Repos\RateMyLandlord2\RateMyLandlord\RateMyLandlord\Controllers\PropertyController.cs:line 85
-2017-03-20 01:39:00,297 INFO [6] RateMyLandlord.Controllers.AccountController.Login - finaldemo17 logged in.
-2017-03-20 01:39:48,596 INFO [7] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : Campus Park
-2017-03-20 01:40:25,304 INFO [7] RateMyLandlord.Controllers.CorrespondenceController.Index - Email Sent!
-2017-03-20 01:49:58,434 INFO [11] RateMyLandlord.Controllers.AccountController.Login - spencerd logged in.
-2017-03-20 01:50:39,780 INFO [9] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : Parker St
-2017-03-20 01:53:02,554 INFO [9] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : Calhoun
-2017-03-20 01:57:51,768 INFO [8] RateMyLandlord.Controllers.AccountController.Login - HiClass logged in.
-2017-03-20 01:58:33,816 INFO [16] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : Ohio Ave
-2017-03-20 01:59:05,133 INFO [16] RateMyLandlord.Controllers.CorrespondenceController.Index - Email Sent!
-2017-03-22 18:31:53,978 INFO [49] RateMyLandlord.Controllers.AccountController.Login - jshed logged in.
-2017-03-22 18:37:45,022 INFO [10] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : test rating
-2017-03-22 18:41:50,040 INFO [9] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : test redirect
-2017-03-22 18:49:38,506 INFO [11] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : test redirect2
-2017-03-22 18:54:44,751 INFO [9] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : test redirect 3
-2017-03-22 19:18:05,503 INFO [19] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : fasdfg
-2017-03-28 23:43:00,408 INFO [11] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : testimgdto
-2017-04-03 19:12:11,012 INFO [6] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : State Test
-2017-04-05 20:42:52,223 INFO [9] RateMyLandlord.Controllers.AccountController.Login - test1 logged in.
-2017-04-05 20:43:35,673 ERROR [9] RateMyLandlord.Controllers.RateController.UpdatePropertyRating - Failed to update Rating for: {}0Exception: {}
+﻿2017-04-06 20:02:33,988 ERROR [10] RateMyLandlord.Controllers.LandlordController.Details - Could not load landlord details: {}
 System.NullReferenceException: Object reference not set to an instance of an object.
-   at RateMyLandlord.Controllers.RateController.UpdatePropertyRating(Int32 pRating, Int32 propertyId) in C:\Users\shedr\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\RateController.cs:line 119
-2017-04-05 20:43:35,830 INFO [9] RateMyLandlord.Controllers.RateController.StorePropertyRating - Rating Saved for property
-2017-04-05 20:46:32,386 INFO [10] RateMyLandlord.Controllers.RateController.UpdatePropertyRating - Rating saved for: {}0
-2017-04-05 20:46:32,533 INFO [10] RateMyLandlord.Controllers.RateController.StorePropertyRating - Rating Saved for property
-2017-04-05 20:52:30,636 INFO [9] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : rate test
-2017-04-05 20:53:03,053 INFO [12] RateMyLandlord.Controllers.RateController.UpdatePropertyRating - Rating saved for: {}36
-2017-04-05 20:53:03,195 INFO [12] RateMyLandlord.Controllers.RateController.StorePropertyRating - Rating Saved for property
-2017-04-06 19:14:58,855 INFO [11] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : displayimgtest
-2017-04-06 19:28:46,856 INFO [11] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : DspImgTest
-2017-04-06 19:35:04,825 INFO [10] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : dbsavecheck
-2017-04-06 19:50:17,848 ERROR [6] RateMyLandlord.Controllers.PropertyController.Create - Failed to create property: anotherimgtest : {}
-System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Users\Spencer\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Images\the_devil_wears_prada_wallpaper_by_darrendisaster-d8j2q3k.jpg'.
-   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
-   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
-   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
-   at System.IO.FileStream..ctor(String path, FileMode mode)
-   at System.Web.HttpPostedFile.SaveAs(String filename)
-   at System.Web.HttpPostedFileWrapper.SaveAs(String filename)
-   at RateMyLandlord.Controllers.PropertyController.Create(CreatePropertyViewModel newProperty, HttpPostedFileBase file) in C:\Users\Spencer\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\PropertyController.cs:line 154
-2017-04-06 19:52:46,621 ERROR [11] RateMyLandlord.Controllers.PropertyController.Create - Failed to create property: imagetestingsucks : {}
-System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Users\Spencer\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Images\the_devil_wears_prada_wallpaper_by_darrendisaster-d8j2q3k.jpg'.
-   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
-   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
-   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
-   at System.IO.FileStream..ctor(String path, FileMode mode)
-   at System.Web.HttpPostedFile.SaveAs(String filename)
-   at System.Web.HttpPostedFileWrapper.SaveAs(String filename)
-   at RateMyLandlord.Controllers.PropertyController.Create(CreatePropertyViewModel newProperty, HttpPostedFileBase file)
-2017-04-06 19:56:25,879 INFO [11] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : imagestst
-2017-04-06 20:48:10,096 ERROR [9] RateMyLandlord.Controllers.PropertyController.Create - Failed to create property: NewestImgTEst : {}
-System.Web.HttpException (0x80004005): The SaveAs method is configured to require a rooted path, and the path 'the_devil_wears_prada_wallpaper_by_darrendisaster-d8j2q3k.jpg' is not rooted.
-   at System.Web.HttpPostedFile.SaveAs(String filename)
-   at System.Web.HttpPostedFileWrapper.SaveAs(String filename)
-   at RateMyLandlord.Controllers.PropertyController.Create(CreatePropertyViewModel newProperty, HttpPostedFileBase file) in C:\Users\Spencer\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\PropertyController.cs:line 196
-2017-04-06 20:51:57,367 INFO [11] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : pls work
-2017-04-06 21:02:09,868 INFO [10] RateMyLandlord.Controllers.PropertyController.Create - Property created successfully : addedImagePath
+   at RateMyLandlord.Controllers.LandlordController.Details(Int32 id) in C:\Users\shedr\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\LandlordController.cs:line 47
+2017-04-06 20:08:19,758 ERROR [11] RateMyLandlord.Controllers.LandlordController.Details - Could not load landlord details: {}
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at RateMyLandlord.Controllers.LandlordController.Details(Int32 id) in C:\Users\shedr\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\LandlordController.cs:line 47
+2017-04-06 20:08:50,787 ERROR [19] RateMyLandlord.Controllers.LandlordController.Details - Could not load landlord details: {}
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at RateMyLandlord.Controllers.LandlordController.Details(Int32 id)
+2017-04-06 20:11:17,229 ERROR [11] RateMyLandlord.Controllers.LandlordController.Details - Could not load landlord details: {}
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at RateMyLandlord.Controllers.LandlordController.Details(Int32 id)
