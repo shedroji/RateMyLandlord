@@ -155,7 +155,10 @@ namespace RateMyLandlord.Controllers
 
                 //set up SMTP client
                 System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient();
-                smtpClient.Host = "mail.twc.com";
+                smtpClient.Credentials = new System.Net.NetworkCredential("ratemylandlord03@gmail.com", "p@ssw0rd1");
+                smtpClient.Host = "smtp.gmail.com";
+                smtpClient.Port = 587;
+                smtpClient.EnableSsl = true;
 
                 //send message
                 //ADD ERROR HANDLING IF EMAIL SEND DOESN'T WORK
@@ -163,8 +166,9 @@ namespace RateMyLandlord.Controllers
             }
             catch (Exception ex)
             {
-                // temporary logging
-                Console.WriteLine(ex.ToString());
+                // temporary loggingW
+                log.Error("Error sending email to: " + emailAddress + " : {}", ex);
+                ModelState.AddModelError(string.Empty, "There was an error sending the email. Please re-enter your email address and try again");
             }
 
         }
