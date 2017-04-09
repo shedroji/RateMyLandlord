@@ -19,5 +19,6 @@ namespace RateMyLandlord.Models.Data
         public bool Active { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
+        public string ImagePath { get; set; }
     }
 }
