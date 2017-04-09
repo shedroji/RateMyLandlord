@@ -13,5 +13,6 @@ namespace RateMyLandlord.Models.Data
         public DbSet<UserValidation> UserValidation { get; set; }
         public DbSet<Property_Rating> Property_Ratings { get; set; }
         public DbSet<PropertyImages> PropertyImages { get; set; }
+        public DbSet<Landlord_Rating> Landlord_Ratings { get; set; }
     }
 }

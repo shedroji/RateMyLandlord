@@ -32,6 +32,14 @@
         <dd>
             @Html.DisplayFor(model => model.Username)
         </dd>
+        
+        <dt>
+            Rating
+        </dt>
+
+        <dd>
+            @Html.Partial("~/Views/Landlord/StoreLandlordRating.cshtml", new RateMyLandlord.Models.ViewModels.Account.LandlordRatingViewModel())
+        </dd>
 
     </dl>
 </div>

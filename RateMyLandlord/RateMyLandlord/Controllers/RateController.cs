@@ -109,6 +109,7 @@ namespace RateMyLandlord.Controllers
             return View("RatingThankYou");
         }
 
+        [HttpPut]
         private void UpdatePropertyRating(int pRating, int propertyId)
         {
             try

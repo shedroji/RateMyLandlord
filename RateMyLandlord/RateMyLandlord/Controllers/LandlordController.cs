@@ -12,6 +12,20 @@ namespace RateMyLandlord.Controllers
     public class LandlordController : Controller
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PropertyController));
+
+        [HttpGet]
+        public int getUserId(string username)
+        {
+            int userId;
+
+            using (RMLDbContext context = new RMLDbContext())
+            {
+                User userDTO = context.Users.FirstOrDefault(u => u.Username.Equals(username));
+                userId = userDTO.Id;
+            }
+            return userId;
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -35,6 +49,7 @@ namespace RateMyLandlord.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult Details(int id)
         {
             UserProfileViewModel userVM;
@@ -51,12 +66,63 @@ namespace RateMyLandlord.Controllers
                         Username = user.Username, 
                     };
                 }
+                Session["landlordId"] = id;
                 return View(userVM);
             }catch(Exception ex)
             {
                 log.Error("Could not load landlord details: {}", ex);
                 return View();
             }
+        }
+
+        [HttpPost]
+        public ActionResult StoreLandlordRating(LandlordRatingViewModel rating)
+        {
+            string username = this.User.Identity.Name;
+            Landlord_Rating newLandlordRatingDTO;
+
+            if (!string.IsNullOrWhiteSpace(username))
+            {
+                int userId = getUserId(username);
+                int landlordId = Convert.ToInt32(Session["landlordId"]);
+                try
+                {
+                    using (RMLDbContext context = new RMLDbContext())
+                    {
+                        if (context.Landlord_Ratings.Any(r => r.UserId.Equals(userId)) && context.Landlord_Ratings.Any(u => u.RaterId.Equals(landlordId)))
+                        {
+                            ModelState.AddModelError("", "You have already Rated this landlord");
+                            ViewBag.Message = "You have already rated this landlord.";
+                            return View("Index");
+                        }
+
+                        newLandlordRatingDTO = new Landlord_Rating()
+                        {
+                            Id = rating.Id,
+                            UserId = rating.UserId,
+                            RaterId = rating.RaterId,
+                            Rating = rating.Rating,
+                            Comment = rating.Comment
+                        };
+
+                        newLandlordRatingDTO = context.Landlord_Ratings.Add(newLandlordRatingDTO);
+                        context.SaveChanges();
+                        log.Info("Landlord Rating Saved");
+                    }
+                }catch(Exception ex)
+                {
+                    ModelState.AddModelError("", "Something went wrong. Your rating was not processed.");
+                    log.Error("Could not add landlord rating: {}", ex);
+                    return View();
+                }
+                
+            }
+            else
+            {
+                ModelState.AddModelError("", "Please log in before rating.");
+                return View("../Account/Login");
+            }
+            return View("../Rate/RatingThankYou");
         }
     }
 }
