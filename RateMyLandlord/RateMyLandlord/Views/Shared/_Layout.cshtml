@@ -22,29 +22,32 @@
                 </button>
                 @Html.ActionLink("RateMyLandlord", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="blue-white-text">@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li class="blue-white-text">@Html.ActionLink("About", "About", "Home")</li>
-                    <li class="blue-white-text">@Html.ActionLink("Contact", "Index", "Correspondence")</li>
-                    <li class="blue-white-text">@using (@Html.BeginForm("Search", "Property"))
+            @if (ViewBag.HideNavBar == null)
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="blue-white-text">@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li class="blue-white-text">@Html.ActionLink("About", "About", "Home")</li>
+                        <li class="blue-white-text">@Html.ActionLink("Contact", "Index", "Correspondence")</li>
+                        <li class="blue-white-text">@using (@Html.BeginForm("Search", "Property"))
+                            {
+                                <input type="text" name="query" class="form-control" style="margin-top:.5em;" placeholder="Search"/>
+                            }
+                        </li>
+                        <li class="nav-divider blue-white-text"></li>
+                        @if (Request.IsAuthenticated)
                         {
-                            <input type="text" name="query" class="form-control" style="margin-top:.5em;" placeholder="Search"/>
+                            <li class="navbar-right blue-white-text">@Html.ActionLink("Logout", "Logout", "Account")</li>
+                            <li class="navbar-right blue-white-text">@Html.Action("UserNavPartial", "Account")</li>
                         }
-                    </li>
-                    <li class="nav-divider blue-white-text"></li>
-                    @if (Request.IsAuthenticated)
-                    {
-                        <li class="navbar-right blue-white-text">@Html.ActionLink("Logout", "Logout", "Account")</li>
-                        <li class="navbar-right blue-white-text">@Html.Action("UserNavPartial", "Account")</li>
-                    }
-                    else
-                    {
-                        <li class="navbar-right blue-white-text">@Html.ActionLink("Login", "Login", "Account")</li>
-                    }
+                        else
+                        {
+                            <li class="navbar-right blue-white-text">@Html.ActionLink("Login", "Login", "Account")</li>
+                        }
 
-                </ul>
-            </div>
+                    </ul>
+                </div>
+            }
         </div>
     </div>
     <div class="container body-content">

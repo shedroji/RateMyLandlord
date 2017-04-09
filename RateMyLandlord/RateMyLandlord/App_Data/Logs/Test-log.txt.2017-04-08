@@ -1,0 +1,12 @@
+﻿2017-04-06 20:02:33,988 ERROR [10] RateMyLandlord.Controllers.LandlordController.Details - Could not load landlord details: {}
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at RateMyLandlord.Controllers.LandlordController.Details(Int32 id) in C:\Users\shedr\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\LandlordController.cs:line 47
+2017-04-06 20:08:19,758 ERROR [11] RateMyLandlord.Controllers.LandlordController.Details - Could not load landlord details: {}
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at RateMyLandlord.Controllers.LandlordController.Details(Int32 id) in C:\Users\shedr\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\LandlordController.cs:line 47
+2017-04-06 20:08:50,787 ERROR [19] RateMyLandlord.Controllers.LandlordController.Details - Could not load landlord details: {}
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at RateMyLandlord.Controllers.LandlordController.Details(Int32 id)
+2017-04-06 20:11:17,229 ERROR [11] RateMyLandlord.Controllers.LandlordController.Details - Could not load landlord details: {}
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at RateMyLandlord.Controllers.LandlordController.Details(Int32 id)

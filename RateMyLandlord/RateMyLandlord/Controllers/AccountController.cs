@@ -111,7 +111,7 @@ namespace RateMyLandlord.Controllers
                     context.SaveChanges();
 
                     SendEmailConfirmation(newUser.FirstName, newUserId, newUser.Email, authCode);
-
+                    
                     return RedirectToAction("Confirm", "Account", new { Email = newUser.Email, Id = newUserId });
                     //return RedirectToAction("SendEmailConfirmation", new { firstName = newUser.FirstName, userID = newUserId, emailAddress = newUser.Email, token = authCode });
                 }
@@ -176,7 +176,9 @@ namespace RateMyLandlord.Controllers
         [HttpGet]
         public ActionResult Confirm(string Email, int Id)
         {
+            ViewBag.Title = "Success!";
             ViewBag.Email = Email;
+            ViewBag.HideNavBar = true;
             ConfirmUserViewModel user = new ConfirmUserViewModel()
             {
                 User_Id = Id,
