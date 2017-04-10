@@ -53,6 +53,7 @@ namespace RateMyLandlord.Controllers
         public ActionResult Details(int id)
         {
             UserProfileViewModel userVM;
+            double landlordAvg = getAvgRating(id);
             
             try
             {
@@ -64,6 +65,7 @@ namespace RateMyLandlord.Controllers
                         FirstName = user.FirstName, 
                         LastName = user.LastName, 
                         Username = user.Username, 
+                        Rating = landlordAvg
                     };
                 }
                 Session["landlordId"] = id;
@@ -76,7 +78,7 @@ namespace RateMyLandlord.Controllers
         }
 
         [HttpPost]
-        public ActionResult StoreLandlordRating(LandlordRatingViewModel rating)
+        public ActionResult StoreLandlordRating(LandlordRatingViewModel lRating)
         {
             string username = this.User.Identity.Name;
             Landlord_Rating newLandlordRatingDTO;
@@ -98,11 +100,11 @@ namespace RateMyLandlord.Controllers
 
                         newLandlordRatingDTO = new Landlord_Rating()
                         {
-                            Id = rating.Id,
-                            UserId = rating.UserId,
-                            RaterId = rating.RaterId,
-                            Rating = rating.Rating,
-                            Comment = rating.Comment
+                            Id = lRating.Id,
+                            UserId = landlordId,
+                            RaterId = userId,
+                            Rating = lRating.Rating,
+                            Comment = lRating.Comment
                         };
 
                         newLandlordRatingDTO = context.Landlord_Ratings.Add(newLandlordRatingDTO);
@@ -122,7 +124,42 @@ namespace RateMyLandlord.Controllers
                 ModelState.AddModelError("", "Please log in before rating.");
                 return View("../Account/Login");
             }
-            return View("../Rate/RatingThankYou");
+            return View("../Landlord/RatingThankYou");
         }
+
+        [HttpGet]
+        public double getAvgRating(int userId)
+        {
+            double avgRating;
+            var resultCollection = new List<Landlord_Rating>();
+            LandlordRatingViewModel landlordRatingVM;
+
+            try
+            {
+                using(RMLDbContext context = new RMLDbContext())
+                {
+                    double count = 0;
+                    double totalRating = 0;
+                    List<Landlord_Rating> ratingList = new List<Landlord_Rating>();
+                    resultCollection = context.Landlord_Ratings.Where(r => r.UserId.Equals(userId)).ToList();
+                    foreach(var rating in resultCollection)
+                    {
+                        totalRating = totalRating + rating.Rating;
+                        count++;
+                    }
+                    avgRating = totalRating / count;
+                    return avgRating;
+                }
+            }catch(Exception ex)
+            {
+                log.Error("Could not get average rating.");
+                ModelState.AddModelError("", "Could not get average rating.");
+                return avgRating = 0;
+            }
+
+            return avgRating;
+        }
+
+        
     }
 }

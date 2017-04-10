@@ -38,6 +38,7 @@
         </dt>
 
         <dd>
+            @string.Format("{0:0.00}", Model.Rating) / 5
             @Html.Partial("~/Views/Landlord/StoreLandlordRating.cshtml", new RateMyLandlord.Models.ViewModels.Account.LandlordRatingViewModel())
         </dd>
 

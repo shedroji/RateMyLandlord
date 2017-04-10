@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RateMyLandlord.Models.Data
 {
-    [Table("Landlord_Ratings")]
+    [Table("tblLandlord_Ratings")]
     public class Landlord_Rating
     {
         [Key]

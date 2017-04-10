@@ -15,5 +15,6 @@ namespace RateMyLandlord.Models.ViewModels.Account
         public DateTime DateCreated { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsLandlord { get; set; }
+        public double Rating { get; set; }
     }
 }
