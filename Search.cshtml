@@ -1,0 +1,63 @@
+﻿@model IEnumerable<RateMyLandlord.Models.ViewModels.Search.SearchResultViewModel>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Search
+        </h1>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@*<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Result Type
+        </th>
+        <th></th>
+    </tr>
+    </table>*@
+
+@foreach (var item in Model)
+{
+    @*<tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisplayText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DisplaySubText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResultType)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "PropertyProfile", new { id=item.Id })
+            </td>
+        </tr>*@
+    <div class="row">
+        <div class="col-md-7">
+            <a href="#">
+                <img class="img-responsive" src="http://placehold.it/700x300" alt="" style="margin-bottom:25px;">
+            </a>
+        </div>
+        <div class="col-md-5">
+            <h3>@Html.DisplayFor(modelItem => item.DisplayText)</h3>
+            <h4>@Html.DisplayFor(modelItem => item.ResultType)</h4>
+            <p>@Html.DisplayFor(modelItem => item.DisplaySubText)</p>
+            <a>@Html.ActionLink("Details", "PropertyProfile", new { id = item.Id })</a>
+        </div>
+    </div>
+
+}
