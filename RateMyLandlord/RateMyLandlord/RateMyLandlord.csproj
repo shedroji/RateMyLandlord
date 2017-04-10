@@ -335,6 +335,7 @@
     <Content Include="Views\Landlord\Index.cshtml" />
     <Content Include="Views\Landlord\Details.cshtml" />
     <Content Include="Views\Landlord\StoreLandlordRating.cshtml" />
+    <Content Include="Views\Landlord\RatingThankYou.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
