@@ -132,7 +132,7 @@ namespace RateMyLandlord.Controllers
         {
             double avgRating;
             var resultCollection = new List<Landlord_Rating>();
-            LandlordRatingViewModel landlordRatingVM;
+            //LandlordRatingViewModel landlordRatingVM;
 
             try
             {
@@ -140,7 +140,7 @@ namespace RateMyLandlord.Controllers
                 {
                     double count = 0;
                     double totalRating = 0;
-                    List<Landlord_Rating> ratingList = new List<Landlord_Rating>();
+                    //List<Landlord_Rating> ratingList = new List<Landlord_Rating>();
                     resultCollection = context.Landlord_Ratings.Where(r => r.UserId.Equals(userId)).ToList();
                     foreach(var rating in resultCollection)
                     {
@@ -160,6 +160,29 @@ namespace RateMyLandlord.Controllers
             return avgRating;
         }
 
-        
+        [HttpGet]
+        public ActionResult getComments(int id)
+        {
+            var resultCollection = new List<Landlord_Rating>();
+            List<CommentViewModel> landlordVM = new List<CommentViewModel>();
+            try
+            {
+                using(RMLDbContext context = new RMLDbContext())
+                {
+                    resultCollection = context.Landlord_Ratings.Where(r => r.RaterId.Equals(id)).ToList();
+                    foreach(var result in resultCollection)
+                    {
+                        landlordVM.Add(new CommentViewModel(result));
+                    }
+                    return View(landlordVM);
+                }
+            }catch(Exception ex)
+            {
+                log.Error("Could not get comments.");
+                ModelState.AddModelError("", "Could not get comments");
+                return View();
+            }
+            return View();
+        }
     }
 }
