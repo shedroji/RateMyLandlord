@@ -1,1 +1,4 @@
-﻿
+﻿2017-04-09 17:50:25,564 INFO [9] RateMyLandlord.Controllers.AccountController.Login - gmail4 logged in.
+2017-04-09 17:50:34,621 ERROR [9] RateMyLandlord.Controllers.LandlordController.StoreLandlordRating - Could not add landlord rating: {}
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at RateMyLandlord.Controllers.LandlordController.StoreLandlordRating(LandlordRatingViewModel rating) in C:\Users\Articuno\Source\Repos\RateMyLandlord\RateMyLandlord\RateMyLandlord\Controllers\LandlordController.cs:line 99
